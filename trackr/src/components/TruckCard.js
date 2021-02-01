@@ -1,0 +1,1 @@
+// TruckCard has the ability to expand if isExpanded === true
