@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import RegisterForm from './components/RegisterForm';
+import { Switch, Route } from 'react-router-dom';
 
 const initialUsers = [];
 
@@ -9,16 +10,14 @@ const initialDinerFormValues = {
   dinerEmail: '',
   dinerPassword: '',
   dinerConfirmPassword: '',
-  dinerZipcode: '',
-  type: ''
+  dinerZipcode: ''
 };
 
 const initialOperatorFormValues = {
   operatorUsername: '',
   operatorEmail: '',
   operatorPassword: '',
-  operatorConfirmPassword: '',
-  type: ''
+  operatorConfirmPassword: ''
 };
 
 const initialDinerDisabled = false;
@@ -50,7 +49,8 @@ function App() {
       dinerPassword: dinerFormValues.dinerPassword.trim(),
       dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
       dinerZipcode: dinerFormValues.dinerZipcode.trim(),
-      type: 'diner'
+      role: 'diner',
+      favoriteTrucks: []
     };
 
     setUsers([...users, newDiner]);
@@ -76,7 +76,8 @@ function App() {
       operatorEmail: operatorFormValues.operatorEmail.trim(),
       operatorPassword: operatorFormValues.operatorPassword.trim(),
       operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
-      type: 'operator'
+      role: 'operator',
+      ownedTrucks: []
     };
 
     setUsers([...users, newOperator]);
@@ -97,7 +98,11 @@ function App() {
   // }
 
   return (
-    <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} />
+    <Switch>
+      <Route path='/register-form'>
+        <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} />
+      </Route>
+    </Switch>
   );
 }
 
