@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import RegisterForm from './components/RegisterForm';
+import NavBar from "./components/NavBar";
+import "./App.css"
 
 const initialUsers = [];
 
@@ -97,7 +99,11 @@ function App() {
   // }
 
   return (
+    <div className="App">
+      <NavBar />
     <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} />
+    </div>
+
   );
 }
 
