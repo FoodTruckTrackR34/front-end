@@ -26,6 +26,14 @@ export default function TruckCard(props) {
     const handleAddToFavorites = () => {
         setFavorites([...favorites,
                     truck.id])
+                    // post request
+    }
+
+    const handleRemoveFromFavorites = () => {
+        setFavorites([...favorites,
+                    truck.id])
+
+                    // delete request
     }
 
     return(
@@ -36,7 +44,7 @@ export default function TruckCard(props) {
             <h4> Cuisine: {truck.cuisineType}</h4>
             <h4> Rating: {truck.avgCustomerRatings}/5 </h4>
             {!isDiner ? <></> :
-           isFavorite ? <h5> ❤️ one of your faves </h5> :
+           isFavorite ? <h5 onClick ={handleRemoveFromFavorites}> ❤️ one of your faves </h5> :
            <h5 onClick={handleAddToFavorites}> ♡ add to faves </h5>
             } 
             {/* ^^ Only display click to add to favorites if user is role === "diner", state managed in Trucks.js */}

@@ -23,16 +23,16 @@ const currentUserData = {
 
 export default function Trucks(props) {
     const [trucks, setTrucks] = useState([])
-    const [currentUser, setCurrentUser] = useState({})
+    const [currentUser, setCurrentUser] = useState(currentUserData)
     const [isDiner, setIsDiner] = useState(false)
     const [favorites, setFavorites] = useState([])
     
-    const runEffect = async () => {
-         setCurrentUser(currentUserData)
+    const runEffect = () => {
+        //  setCurrentUser(currentUserData)
          setTrucks(allTruckData)
     }
 
-    useEffect(() => {
+    useEffect( () => {
         runEffect()
         setIsDiner(currentUser.role === "diner")
         setFavorites(currentUser.favoriteTrucks)
@@ -45,7 +45,7 @@ export default function Trucks(props) {
         <h1>Hello from trucks</h1>
             {trucks.map( truck => {
                 return (
-                    <TruckCard key={truck.id} truck={truck} isDiner={currentUser.role === "diner"} favorites={currentUser.favoriteTrucks} setFavorites={setFavorites}/>
+                    <TruckCard key={truck.id} truck={truck} isDiner={currentUser.role === "diner"} favorites={favorites} setFavorites={setFavorites}/>
                 )
             })}
 
