@@ -110,6 +110,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+      <LoginForm />
       <RegisterForm
         dinerChange={dinerInputChange}
         dinerDisabled={dinerButton}
@@ -121,7 +122,6 @@ function App() {
         operatorValues={operatorFormValues}
       />
       <DinerDash />
-      <OperatorDash /> */
       <Footer />
     </div>
   );
