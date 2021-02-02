@@ -1,8 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import RegisterForm from './components/RegisterForm';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
-import { Switch, Route } from 'react-router-dom';
 import * as yup from 'yup';
 import dinerSchema from './validation/dinerFormSchema';
 import operatorSchema from './validation/operatorFormSchema';
@@ -11,6 +11,8 @@ import DinerDash from "./components/DinerDash"
 import OperatorDash from "./components/OperatorDash"
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+// import axiosWithAuth from "./utils/axiosWithAuth"
+import axios from 'axios'
 
 
 const initialUsers = [];
@@ -59,6 +61,7 @@ const initialLoginFormErrors = {
 };
 
 function App() {
+  const history = useHistory()
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(initialDinerFormValues);
   const [dinerFormErrors, setDinerFormErrors] = useState(initialDinerFormErrors);
@@ -128,58 +131,59 @@ function App() {
 
   const dinerFormSubmit = () => {
     const newDiner = {
-      dinerUsername: dinerFormValues.dinerUsername.trim(),
-      dinerEmail: dinerFormValues.dinerEmail.trim(),
-      dinerPassword: dinerFormValues.dinerPassword.trim(),
-      dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
-      dinerZipcode: dinerFormValues.dinerZipcode.trim(),
+      username: dinerFormValues.dinerUsername.trim(),
+      email: dinerFormValues.dinerEmail.trim(),
+      password: dinerFormValues.dinerPassword.trim(),
+      // dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
+      // dinerZipcode: dinerFormValues.dinerZipcode.trim(),
       role: 'diner',
-      favoriteTrucks: []
     };
 
     setUsers([...users, newDiner]);
     setDinerFormValues(initialDinerFormValues);
-    // postNewDiner(newDiner);
+    postNewDiner(newDiner);
+
+
   };
 
-  // const postNewDiner = (newDiner) => {
-  //   axios
-  //   .post('https://reqres.in/api/users', newDiner)
-  //   .then((res) => {
-  //     setUsers([...users, res.data]);
-  //     setDinerFormValues(initialDinerFormValues);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  const postNewDiner = (newDiner) => {
+    axios
+    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newDiner)
+    .then((res) => {
+      console.log(res)
+      history.push('/diner-dashboard')
+      //setDinerFormValues(initialDinerFormValues);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   const operatorFormSubmit = () => {
     const newOperator = {
-      operatorUsername: operatorFormValues.operatorUsername.trim(),
-      operatorEmail: operatorFormValues.operatorEmail.trim(),
-      operatorPassword: operatorFormValues.operatorPassword.trim(),
-      operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
+      username: operatorFormValues.operatorUsername.trim(),
+      email: operatorFormValues.operatorEmail.trim(),
+      password: operatorFormValues.operatorPassword.trim(),
       role: 'operator',
-      ownedTrucks: []
     };
 
     setUsers([...users, newOperator]);
     setOperatorFormValues(initialOperatorFormValues);
-    // postNewOperator(newOperator);
+    postNewOperator(newOperator);
   };
 
-  // const postNewOperator = (newOperator) => {
-  //   axios
-  //   .post('https://reqres.in/api/users', newOperator)
-  //   .then((res) => {
-  //     setUsers([...users, res.data]);
-  //     setOperatorFormValues(initialOperatorFormValues);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  const postNewOperator = (newOperator) => {
+    axios
+    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newOperator)
+    .then((res) => {
+      console.log(res)
+      history.push('/operator-dashboard')
+      //setDinerFormValues(initialDinerFormValues);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   const loginInputChange = (name, value) => {
     yup
@@ -217,18 +221,20 @@ function App() {
 
   return (
     <div className="App">
-      <Switch>
-        <Route path='/register-form'>
-          <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
-        </Route>
-        <Route path='/login-form'>
+      <NavBar />
+      <Route path='/login-form'>
           <LoginForm values={loginFormValues} loginChange={loginInputChange} loginFormSubmit={loginFormSubmit} loginDisabled={loginButton} errors={loginFormErrors}/>
         </Route>
-        <NavBar />
-        <DinerDash />
-        <OperatorDash />
-        <Footer />
-      </Switch>
+      <Switch>
+        <Route exact path='/register-form'>
+          <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
+        </Route>
+        <Route path="/diner-dashboard" component={DinerDash} />
+    
+        <Route path="/operator-dashboard" component = {OperatorDash} />
+       
+    </Switch>
+    <Footer />
     </div>
   );
 }

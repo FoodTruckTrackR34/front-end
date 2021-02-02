@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import users from '../dummy-data/users'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 import TruckCard from './TruckCard'
+
+// const allOperatorData = users.filter(user => {
+//               return  user.role === "operator"
+// })
+// let allTruckData = []
+// allOperatorData.forEach( oper => {
+//                         oper.trucksOwned.forEach( truck => {
+//                             allTruckData.push(truck)
+//                         })
+// })
+
+// const currentUserData = {
+//     id: 2,
+//     role: "diner",
+//     username: "mikemurphy",
+//     password: "password",
+//     currentLocation: "60805",   // can be string with address, zipcode number, GPS coordinates as string
+//     favoriteTrucks: [123, 789] // id
+//                }
 
 const allOperatorData = users.filter(user => {
               return  user.role === "operator"
 })
-let allTruckData = []
-allOperatorData.forEach( oper => {
-                        oper.trucksOwned.forEach( truck => {
-                            allTruckData.push(truck)
-                        })
-})
+// let allTruckData = []
+// allOperatorData.forEach( oper => {
+//                         oper.trucksOwned.forEach( truck => {
+//                             allTruckData.push(truck)
+//                         })
+// })
 
 const currentUserData = {
     id: 2,
@@ -29,7 +49,17 @@ export default function Trucks(props) {
     
     const runEffect = () => {
         //  setCurrentUser(currentUserData)
-         setTrucks(allTruckData)
+        axiosWithAuth()
+        .get('/api/trucks')
+        .then(res => {
+            console.log(res.data)
+            setTrucks(res.data)
+        }
+        )
+        .catch(err => {
+            console.log(err)
+        })
+ 
     }
 
     useEffect( () => {
