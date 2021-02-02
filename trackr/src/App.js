@@ -1,27 +1,27 @@
-
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import RegisterForm from './components/RegisterForm';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import RegisterForm from "./components/RegisterForm";
 import NavBar from "./components/NavBar";
-import "./App.css"
+import Footer from "./components/Footer";
+import "./App.css";
 
 const initialUsers = [];
 
 const initialDinerFormValues = {
-  dinerUsername: '',
-  dinerEmail: '',
-  dinerPassword: '',
-  dinerConfirmPassword: '',
-  dinerZipcode: '',
-  type: ''
+  dinerUsername: "",
+  dinerEmail: "",
+  dinerPassword: "",
+  dinerConfirmPassword: "",
+  dinerZipcode: "",
+  type: "",
 };
 
 const initialOperatorFormValues = {
-  operatorUsername: '',
-  operatorEmail: '',
-  operatorPassword: '',
-  operatorConfirmPassword: '',
-  type: ''
+  operatorUsername: "",
+  operatorEmail: "",
+  operatorPassword: "",
+  operatorConfirmPassword: "",
+  type: "",
 };
 
 const initialDinerDisabled = false;
@@ -29,20 +29,26 @@ const initialOperatorDisabled = false;
 
 function App() {
   const [users, setUsers] = useState(initialUsers);
-  const [dinerFormValues, setDinerFormValues] = useState(initialDinerFormValues);
-  const [operatorFormValues, setOperatorFormValues] = useState(initialOperatorFormValues);
+  const [dinerFormValues, setDinerFormValues] = useState(
+    initialDinerFormValues
+  );
+  const [operatorFormValues, setOperatorFormValues] = useState(
+    initialOperatorFormValues
+  );
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
 
   const dinerInputChange = (name, value) => {
     setDinerFormValues({
-      ...dinerFormValues, [name]: value
+      ...dinerFormValues,
+      [name]: value,
     });
   };
 
   const operatorInputChange = (name, value) => {
     setOperatorFormValues({
-      ...operatorFormValues, [name]: value
+      ...operatorFormValues,
+      [name]: value,
     });
   };
 
@@ -53,7 +59,7 @@ function App() {
       dinerPassword: dinerFormValues.dinerPassword.trim(),
       dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
       dinerZipcode: dinerFormValues.dinerZipcode.trim(),
-      type: 'diner'
+      type: "diner",
     };
 
     setUsers([...users, newDiner]);
@@ -79,7 +85,7 @@ function App() {
       operatorEmail: operatorFormValues.operatorEmail.trim(),
       operatorPassword: operatorFormValues.operatorPassword.trim(),
       operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
-      type: 'operator'
+      type: "operator",
     };
 
     setUsers([...users, newOperator]);
@@ -101,12 +107,19 @@ function App() {
 
   return (
     <div className="App">
-
       <NavBar />
-    <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} />
-
+      <RegisterForm
+        dinerChange={dinerInputChange}
+        dinerDisabled={dinerButton}
+        dinerFormSubmit={dinerFormSubmit}
+        dinerValues={dinerFormValues}
+        operatorChange={operatorInputChange}
+        operatorDisabled={operatorButton}
+        operatorFormSubmit={operatorFormSubmit}
+        operatorValues={operatorFormValues}
+      />
+      <Footer />
     </div>
-
   );
 }
 
