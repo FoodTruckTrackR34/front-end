@@ -3,7 +3,7 @@ import * as yup from 'yup';
 export default yup.object().shape({
     operatorUsername: yup
         .string()
-        .required('Name is required!')
+        .required('Username is required!')
         .min(3, 'Must be at least 3 characters long!'),
     operatorEmail: yup
         .string()

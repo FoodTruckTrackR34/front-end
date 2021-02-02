@@ -98,49 +98,49 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 
                     <div>
                         <label>Username:
+                        <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                             <input
                             type='text'
                             name='operatorUsername'
                             value={operatorValues.operatorUsername}
                             onChange={operatorOnChange}>
                             </input>
-                            <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Email:
+                        <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                             <input
                             type='email'
                             name='operatorEmail'
                             value={operatorValues.operatorEmail}
                             onChange={operatorOnChange}>
                             </input>
-                            <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Password:
+                        <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorPassword'
                             value={operatorValues.operatorPassword}
                             onChange={operatorOnChange}>
                             </input>
-                            <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Confirm Password:
+                        <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorConfirmPassword'
                             value={operatorValues.operatorConfirmPassword}
                             onChange={operatorOnChange}>
                             </input>
-                            <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
                     <button disabled={operatorDisabled}>Submit</button>
