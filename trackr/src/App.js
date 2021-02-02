@@ -5,6 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 import * as yup from 'yup';
 import dinerSchema from './validation/dinerFormSchema';
 import operatorSchema from './validation/operatorFormSchema';
+import DinerDash from "./components/DinerDash"
+import OperatorDash from "./components/OperatorDash"
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+
 
 const initialUsers = [];
 
@@ -37,6 +42,14 @@ const initialOperatorFormErrors = {
   operatorConfirmPassword: ''
 };
 
+const initialOperatorFormValues = {
+  operatorUsername: "",
+  operatorEmail: "",
+  operatorPassword: "",
+  operatorConfirmPassword: "",
+  type: "",
+};
+
 const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
@@ -65,7 +78,8 @@ function App() {
     });
 
     setDinerFormValues({
-      ...dinerFormValues, [name]: value
+      ...dinerFormValues,
+      [name]: value,
     });
   };
 
@@ -92,7 +106,8 @@ function App() {
     });
 
     setOperatorFormValues({
-      ...operatorFormValues, [name]: value
+      ...operatorFormValues,
+      [name]: value,
     });
   };
 
@@ -159,11 +174,17 @@ function App() {
   // }
 
   return (
-    <Switch>
-      <Route path='/register-form'>
-        <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
-      </Route>
-    </Switch>
+    <div className="App">
+      <Switch>
+        <Route path='/register-form'>
+          <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
+        </Route>
+        <NavBar />
+        <DinerDash />
+        <OperatorDash />
+        <Footer />
+      </Switch>
+    </div>
   );
 }
 
