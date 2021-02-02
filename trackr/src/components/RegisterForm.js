@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit }) {
+export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit, dinerErrors, operatorErrors }) {
 
     const dinerOnChange = (evt) => {
         const { name, value } = evt.target;
@@ -37,6 +37,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerUsername}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -48,6 +49,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerEmail}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -59,6 +61,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerPassword}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -70,6 +73,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerConfirmPassword}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -94,6 +98,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 
                     <div>
                         <label>Username:
+                        <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                             <input
                             type='text'
                             name='operatorUsername'
@@ -105,6 +110,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 
                     <div>
                         <label>Email:
+                        <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                             <input
                             type='email'
                             name='operatorEmail'
@@ -116,6 +122,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 
                     <div>
                         <label>Password:
+                        <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorPassword'
@@ -127,6 +134,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 
                     <div>
                         <label>Confirm Password:
+                        <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorConfirmPassword'
@@ -161,4 +169,8 @@ const StyledOperatorContainer = styled.div`
     input {
         margin: 0 0 1% .3%;
     }
+`;
+
+const StyledErrorDiv = styled.div`
+    color: red;
 `;
