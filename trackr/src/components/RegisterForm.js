@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit }) {
+export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit, dinerErrors, operatorErrors }) {
 
     const dinerOnChange = (evt) => {
         const { name, value } = evt.target;
@@ -37,6 +37,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerUsername}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -48,6 +49,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerEmail}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -59,6 +61,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerPassword}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -70,6 +73,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={dinerValues.dinerConfirmPassword}
                             onChange={dinerOnChange}>
                             </input>
+                            <StyledErrorDiv>{dinerErrors.dinerConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -100,6 +104,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={operatorValues.operatorUsername}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -111,6 +116,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={operatorValues.operatorEmail}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -122,6 +128,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={operatorValues.operatorPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
@@ -133,6 +140,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             value={operatorValues.operatorConfirmPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
                     <button disabled={operatorDisabled}>Submit</button>
@@ -161,4 +169,8 @@ const StyledOperatorContainer = styled.div`
     input {
         margin: 0 0 1% .3%;
     }
+`;
+
+const StyledErrorDiv = styled.div`
+    color: red;
 `;

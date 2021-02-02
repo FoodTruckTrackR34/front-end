@@ -15,5 +15,7 @@ export default yup.object().shape({
         .min(6, 'Password must be at least 6 characters long!'),
     dinerConfirmPassword: yup
         .string()
-        .oneOf([yup.ref('dinerPassword'), null], 'Passwords must match')
+        .oneOf([yup.ref('dinerPassword'), null], 'Passwords must match'),
+    dinerZipcode: yup
+        .number()
 });

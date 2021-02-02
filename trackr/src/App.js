@@ -4,6 +4,7 @@ import RegisterForm from './components/RegisterForm';
 import { Switch, Route } from 'react-router-dom';
 import * as yup from 'yup';
 import dinerSchema from './validation/dinerFormSchema';
+import operatorSchema from './validation/operatorFormSchema';
 
 const initialUsers = [];
 
@@ -29,6 +30,13 @@ const initialOperatorFormValues = {
   operatorConfirmPassword: ''
 };
 
+const initialOperatorFormErrors = {
+  operatorUsername: '',
+  operatorEmail: '',
+  operatorPassword: '',
+  operatorConfirmPassword: ''
+};
+
 const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
@@ -37,6 +45,7 @@ function App() {
   const [dinerFormValues, setDinerFormValues] = useState(initialDinerFormValues);
   const [dinerFormErrors, setDinerFormErrors] = useState(initialDinerFormErrors);
   const [operatorFormValues, setOperatorFormValues] = useState(initialOperatorFormValues);
+  const [operatorFormErrors, setOperatorFormErrors] = useState(initialOperatorFormErrors);
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
 
@@ -53,7 +62,7 @@ function App() {
         setDinerFormErrors({
           ...dinerFormErrors, [name]: err.errors[0]
         });
-      });
+    });
 
     setDinerFormValues({
       ...dinerFormValues, [name]: value
@@ -68,10 +77,31 @@ function App() {
   }, [dinerFormValues]);
 
   const operatorInputChange = (name, value) => {
+    yup
+      .reach(operatorSchema, name)
+      .validate(value)
+      .then(() => {
+        setOperatorFormErrors({
+          ...operatorFormErrors, [name]: ''
+        });
+      })
+      .catch((err) => {
+        setOperatorFormErrors({
+          ...operatorFormErrors, [name]: err.errors[0]
+        });
+    });
+
     setOperatorFormValues({
       ...operatorFormValues, [name]: value
     });
   };
+
+  useEffect(() => {
+    operatorSchema.isValid(operatorFormValues)
+    .then((valid) => {
+      setOperatorButton(!valid);
+    })
+  }, [operatorFormValues]);
 
   const dinerFormSubmit = () => {
     const newDiner = {
@@ -131,7 +161,7 @@ function App() {
   return (
     <Switch>
       <Route path='/register-form'>
-        <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} />
+        <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
       </Route>
     </Switch>
   );
