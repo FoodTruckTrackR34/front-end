@@ -1,6 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import RegisterForm from "./components/RegisterForm";
+import DinerDash from "./components/DinerDash"
+import OperatorDash from "./components/OperatorDash"
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -118,6 +120,8 @@ function App() {
         operatorFormSubmit={operatorFormSubmit}
         operatorValues={operatorFormValues}
       />
+      <DinerDash />
+      <OperatorDash /> */
       <Footer />
     </div>
   );
