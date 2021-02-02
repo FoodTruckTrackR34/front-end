@@ -211,6 +211,7 @@ function App() {
 
   const loginFormSubmit = () => {
     console.log('success!');
+    // this will be axios POST instead of console.log. Thats there just for testing and the form does work properly (just doesn't send any actual data)
     setLoginFormValues(initialLoginFormValues);
   };
 
