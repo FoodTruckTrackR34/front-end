@@ -2,6 +2,8 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import RegisterForm from './components/RegisterForm';
 import { Switch, Route } from 'react-router-dom';
+import * as yup from 'yup';
+import dinerSchema from './validation/dinerFormSchema';
 
 const initialUsers = [];
 
@@ -13,6 +15,13 @@ const initialDinerFormValues = {
   dinerZipcode: ''
 };
 
+const initialDinerFormErrors = {
+  dinerUsername: '',
+  dinerEmail: '',
+  dinerPassword: '',
+  dinerConfirmPassword: ''
+};
+
 const initialOperatorFormValues = {
   operatorUsername: '',
   operatorEmail: '',
@@ -20,21 +29,43 @@ const initialOperatorFormValues = {
   operatorConfirmPassword: ''
 };
 
-const initialDinerDisabled = false;
-const initialOperatorDisabled = false;
+const initialDinerDisabled = true;
+const initialOperatorDisabled = true;
 
 function App() {
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(initialDinerFormValues);
+  const [dinerFormErrors, setDinerFormErrors] = useState(initialDinerFormErrors);
   const [operatorFormValues, setOperatorFormValues] = useState(initialOperatorFormValues);
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
 
   const dinerInputChange = (name, value) => {
+    yup
+      .reach(dinerSchema, name)
+      .validate(value)
+      .then(() => {
+        setDinerFormErrors({
+          ...dinerFormErrors, [name]: ''
+        });
+      })
+      .catch((err) => {
+        setDinerFormErrors({
+          ...dinerFormErrors, [name]: err.errors[0]
+        });
+      });
+
     setDinerFormValues({
       ...dinerFormValues, [name]: value
     });
   };
+
+  useEffect(() => {
+    dinerSchema.isValid(dinerFormValues)
+    .then((valid) => {
+      setDinerButton(!valid);
+    })
+  }, [dinerFormValues]);
 
   const operatorInputChange = (name, value) => {
     setOperatorFormValues({
