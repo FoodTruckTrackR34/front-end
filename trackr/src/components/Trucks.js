@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import {TrucksContext} from '../contexts/TrucksContext'
 import users from '../dummy-data/users'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import TruckCard from './TruckCard'
@@ -42,29 +43,12 @@ const currentUserData = {
                }
 
 export default function Trucks(props) {
-    const [trucks, setTrucks] = useState([])
     const [currentUser, setCurrentUser] = useState(currentUserData)
     const [isDiner, setIsDiner] = useState(false)
     const [favorites, setFavorites] = useState([])
-    
-    const runEffect = () => {
-        //  setCurrentUser(currentUserData)
-        debugger
-        axiosWithAuth()
-        .get('/api/trucks')
-        .then(res => {
-            console.log(res.data)
-            setTrucks(res.data)
-        }
-        )
-        .catch(err => {
-            console.log(err)
-        })
- 
-    }
+    const trucks = useContext(TrucksContext)
 
     useEffect( () => {
-        runEffect()
         setIsDiner(currentUser.role === "diner")
         setFavorites(currentUser.favoriteTrucks)
     }, [])
@@ -74,7 +58,8 @@ export default function Trucks(props) {
     return (
         <div className="trucks-container">
         <h1>Hello from trucks</h1>
-            {trucks.map( truck => {
+        {!trucks ? <div>Loading...</div>:
+            trucks.map( truck => {
                 return (
                     <TruckCard key={truck.id} truck={truck} isDiner={currentUser.role === "diner"} favorites={favorites} setFavorites={setFavorites}/>
                 )
