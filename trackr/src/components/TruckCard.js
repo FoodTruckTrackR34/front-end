@@ -69,3 +69,7 @@ export default function TruckCard(props) {
         </div>
     )
 }
+
+// create a component titled Menu which maps over all menu items and creates a subcomponent titled MenuItemCard for each item.
+// Menu is visible when truckcard isExpanded
+// MenuItemCard can also be expanded ~stretch~

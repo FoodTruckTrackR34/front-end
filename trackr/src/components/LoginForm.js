@@ -26,6 +26,7 @@ const initialLoginDisabled = true;
 export default function LoginForm() {
 
   const {push} = useHistory()
+
   const [loginFormValues, setLoginFormValues] = useState(
     initialLoginFormValues
   );
@@ -87,6 +88,7 @@ code that was already in the Login.js component is placed below and everything i
         console.log(res.data);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.role);
+
         // axios
         //.get()
         // get array of users

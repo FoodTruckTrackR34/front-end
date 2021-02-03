@@ -8,7 +8,11 @@ const SearchBar = () => {
   };
   return (
     <form>
-      <label htmlFor="search-bar">Search </label>
+      <label htmlFor="search-bar">Search by Cuisine </label>
+      <input id="search-bar" value={values} onChange={changeHandle} />
+      <label htmlFor="search-bar">Search by Ratings </label>
+      <input id="search-bar" value={values} onChange={changeHandle} />
+      <label htmlFor="search-bar">Search by Proximity </label>
       <input id="search-bar" value={values} onChange={changeHandle} />
     </form>
   );
