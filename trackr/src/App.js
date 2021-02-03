@@ -1,6 +1,6 @@
 
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import { Switch, Route, useHistory } from "react-router-dom";
@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+ 
 
 const initialUsers = [];
 
