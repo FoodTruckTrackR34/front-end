@@ -12,7 +12,8 @@ import DinerDash from "./components/DinerDash";
 import OperatorDash from "./components/OperatorDash";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import { SecureRoute } from "./components/PrivateRoute";
+import { SecureOpRoute } from "./components/SecureOpRoute";
+import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 const initialUsers = [];
@@ -204,10 +205,10 @@ function App() {
           />
         </Route>
         <Route  path="/login-form" component = {LoginForm}/>
-        <SecureRoute path="/diner-dashboard" component={DinerDash}/>
-        <SecureRoute path="/operator-dashboard">
+        <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
+        <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
-        </SecureRoute>
+        </SecureOpRoute>
         <Route path="/" component = {LoginForm}/>
       </Switch>
       <Footer />
