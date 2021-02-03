@@ -6,10 +6,11 @@ export function SecureRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={() => {
+        debugger
         if (localStorage.getItem("token")) {
           return <Component />;
         } else {
-          return <Redirect to="/login" />;
+          return <Redirect to="/login-form" />;
         }
       }}
     />
