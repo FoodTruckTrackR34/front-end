@@ -11,7 +11,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
-
 const initialLoginFormValues = {
   username: "",
   password: "",
@@ -24,8 +23,7 @@ const initialLoginFormErrors = {
 const initialLoginDisabled = true;
 
 export default function LoginForm() {
-
-  const {push} = useHistory()
+  const { push } = useHistory();
 
   const [loginFormValues, setLoginFormValues] = useState(
     initialLoginFormValues
@@ -83,20 +81,23 @@ code that was already in the Login.js component is placed below and everything i
     evt.preventDefault();
     //axios needed
     axios
-      .post("https://food-truck-back-end-lambda.herokuapp.com/api/auth/login", loginFormValues)
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/login",
+        loginFormValues
+      )
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', res.data.role);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.role);
 
         // axios
         //.get()
         // get array of users
         // filter through array and return user if loginFormValues.username === user.username
         // if user.role === "diner"
-        res.data.role ==="diner" ?
-        push("/diner-dashboard")  :
-        push("/operator-dashboard")
+        res.data.role === "diner"
+          ? push("/diner-dashboard")
+          : push("/operator-dashboard");
         // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
@@ -120,9 +121,7 @@ code that was already in the Login.js component is placed below and everything i
               value={loginFormValues.username}
               onChange={loginOnChange}
             ></input>
-            <StyledLoginErrors>
-              {loginFormErrors.username}
-            </StyledLoginErrors>
+            <StyledLoginErrors>{loginFormErrors.username}</StyledLoginErrors>
           </label>
         </StyledInputDiv>
 
@@ -135,9 +134,7 @@ code that was already in the Login.js component is placed below and everything i
               value={loginFormValues.password}
               onChange={loginOnChange}
             ></input>
-            <StyledLoginErrors>
-              {loginFormErrors.password}
-            </StyledLoginErrors>
+            <StyledLoginErrors>{loginFormErrors.password}</StyledLoginErrors>
           </label>
         </StyledInputDiv>
         <button disabled={loginButton}>Login!</button>
