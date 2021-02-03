@@ -6,7 +6,6 @@ export function SecureDinerRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        debugger
         if (localStorage.getItem("token")) {
           return <Component />;
         } else {
