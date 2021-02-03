@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-export function SecureRoute({ component: Component, ...rest }) {
+export function SecureDinerRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}

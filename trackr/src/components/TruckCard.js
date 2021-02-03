@@ -39,8 +39,8 @@ export default function TruckCard(props) {
     return(
         <div className="truckCard-container">
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br/>
-            This is a truck with id: {truck.truck_id}
-            <h3> Name of Truck </h3>
+            {/* This is a truck with id: {truck.truck_id} */}
+            <h3> $truck.name$ </h3>
             <h4> Cuisine: {truck.cuisineType}</h4>
             <h4> Rating: {truck.avgCustomerRatings}/5 </h4>
             {!isDiner ? <></> :
@@ -60,3 +60,7 @@ export default function TruckCard(props) {
         </div>
     )
 }
+
+// create a component titled Menu which maps over all menu items and creates a subcomponent titled MenuItemCard for each item.
+// Menu is visible when truckcard isExpanded
+// MenuItemCard can also be expanded ~stretch~
