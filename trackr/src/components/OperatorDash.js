@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Trucks from "./Trucks"
+import SearchBar from "./SearchBar"
 import OperatorProfile from "./OperatorProfile"
+import {TrucksContext} from '../contexts/TrucksContext'
+import axios from "axios"
+import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 const currentUserData = {
     id: 1,
@@ -16,19 +20,41 @@ const currentUserData = {
     ]}
 
 export default function OperatorDash() {
+    const [trucks, setTrucks] = useState()
     const [currentUser, setCurrentUser] = useState()
 
     const fetchUser = () => {
         setCurrentUser(currentUserData)}
 
+        const fetchTrucks = () => {
+        
+        axiosWithAuth()
+            .get('/api/trucks')
+            .then(res => {
+                console.log(res.data)
+                setTrucks(res.data)
+            }
+            )
+            .catch(err => {
+                console.log(err)
+                setTrucks('Could not load trucks')
+            })
+        }  
+
     useEffect(() => {
         fetchUser()
+        fetchTrucks()
+        console.log(trucks)
     }, [])
+    // get trucks from api .then(setTrucks(res.data)).catch(setTrucks("Could not load trucks"))
 
     return(
         <div className="dashboard-container">
-        <OperatorProfile currentUser={currentUser}/>
-        <Trucks />
+        <TrucksContext.Provider value={trucks}>
+            <SearchBar />    
+            <OperatorProfile currentUser={currentUser}/>
+            <Trucks />
+        </TrucksContext.Provider>
         </ div>
     )
 }
