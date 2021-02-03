@@ -8,9 +8,9 @@ export default function TruckCard(props) {
     const [isExpanded, setIsExpanded] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
 
-       const favoriteMatch = favorites.filter(favorite => {
-                           return (
-                                favorite === truck.id)
+    const favoriteMatch = favorites.filter(favorite => {
+        return (
+        favorite === truck.id)
     })
 
     useEffect( () => {
@@ -39,10 +39,19 @@ export default function TruckCard(props) {
     return(
         <div className="truckCard-container">
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br/>
-            This is a truck with id: {truck.truck_id}
-            <h3> Name of Truck </h3>
-            <h4> Cuisine: {truck.cuisineType}</h4>
-            <h4> Rating: {truck.avgCustomerRatings}/5 </h4>
+
+            <h2>Example Truck Name {/*truck.truckName 'string'*/} </h2>
+            <img src='exampleImage.png' /> {/*truck.imgURL 'string'*/}
+            <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
+            <h4>Average Customer Rating: 4.4/5 {/*average of an array of ratings .reduce over customerRatings.value / customerRatings.length*/} </h4>
+            <p>Current Location of Truck: 123 Main St. San Francisco, CA {/*truck.currentLocation*/} </p>
+            <p>Departure Time: 6:00pm PST {/*truck.departureTime*/} </p>
+            <a href=''>View Menu Items {/*.map over menuItems array ... expand this on same page? or new page?*/} </a>
+            <br />
+            <br />
+            <span>If the role is diner...</span><a href=''>Been here? Leave a Review! {/*link to a page with a form that adds the review to the customer ratings array?*/} </a>
+            <p>❤️ one of your faves! -or- ♡ add to faves {/* this will be generated based on code below */} </p>
+
             {!isDiner ? <></> :
            isFavorite ? <h5 onClick ={handleRemoveFromFavorites}> ❤️ one of your faves </h5> :
            <h5 onClick={handleAddToFavorites}> ♡ add to faves </h5>
