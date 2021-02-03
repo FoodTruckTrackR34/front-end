@@ -1,77 +1,70 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import RegisterForm from './components/RegisterForm';
-import { Switch, Route, useHistory } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
-import * as yup from 'yup';
-import dinerSchema from './validation/dinerFormSchema';
-import operatorSchema from './validation/operatorFormSchema';
-import loginSchema from './validation/loginFormSchema';
-import DinerDash from "./components/DinerDash"
-import OperatorDash from "./components/OperatorDash"
+
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
+import { Switch, Route } from "react-router-dom";
+import * as yup from "yup";
+import dinerSchema from "./validation/dinerFormSchema";
+import operatorSchema from "./validation/operatorFormSchema";
+
+import DinerDash from "./components/DinerDash";
+import OperatorDash from "./components/OperatorDash";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-// import axiosWithAuth from "./utils/axiosWithAuth"
-import axios from 'axios'
-
+import { SecureRoute } from "./components/PrivateRoute";
 
 const initialUsers = [];
 
 const initialDinerFormValues = {
-  dinerUsername: '',
-  dinerEmail: '',
-  dinerPassword: '',
-  dinerConfirmPassword: '',
-  dinerZipcode: ''
+  dinerUsername: "",
+  dinerEmail: "",
+  dinerPassword: "",
+  dinerConfirmPassword: "",
+  dinerZipcode: "",
 };
 
 const initialDinerFormErrors = {
-  dinerUsername: '',
-  dinerEmail: '',
-  dinerPassword: '',
-  dinerConfirmPassword: ''
+  dinerUsername: "",
+  dinerEmail: "",
+  dinerPassword: "",
+  dinerConfirmPassword: "",
 };
 
 const initialOperatorFormValues = {
-  operatorUsername: '',
-  operatorEmail: '',
-  operatorPassword: '',
-  operatorConfirmPassword: ''
+  operatorUsername: "",
+  operatorEmail: "",
+  operatorPassword: "",
+  operatorConfirmPassword: "",
 };
 
 const initialOperatorFormErrors = {
-  operatorUsername: '',
-  operatorEmail: '',
-  operatorPassword: '',
-  operatorConfirmPassword: ''
+  operatorUsername: "",
+  operatorEmail: "",
+  operatorPassword: "",
+  operatorConfirmPassword: "",
 };
 
 const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
-const initialLoginDisabled = true;
-
-const initialLoginFormValues = {
-  loginUsername: '',
-  loginPassword: ''
-};
-
-const initialLoginFormErrors = {
-  loginUsername: '',
-  loginPassword: ''
-};
 
 function App() {
   const history = useHistory()
   const [users, setUsers] = useState(initialUsers);
-  const [dinerFormValues, setDinerFormValues] = useState(initialDinerFormValues);
-  const [dinerFormErrors, setDinerFormErrors] = useState(initialDinerFormErrors);
-  const [operatorFormValues, setOperatorFormValues] = useState(initialOperatorFormValues);
-  const [operatorFormErrors, setOperatorFormErrors] = useState(initialOperatorFormErrors);
+  const [dinerFormValues, setDinerFormValues] = useState(
+    initialDinerFormValues
+  );
+  const [dinerFormErrors, setDinerFormErrors] = useState(
+    initialDinerFormErrors
+  );
+  const [operatorFormValues, setOperatorFormValues] = useState(
+    initialOperatorFormValues
+  );
+  const [operatorFormErrors, setOperatorFormErrors] = useState(
+    initialOperatorFormErrors
+  );
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
-  const [loginFormValues, setLoginFormValues] = useState(initialLoginFormValues);
-  const [loginButton, setLoginButton] = useState(initialLoginDisabled);
-  const [loginFormErrors, setLoginFormErrors] = useState(initialLoginFormErrors);
 
   const dinerInputChange = (name, value) => {
     yup
@@ -79,14 +72,16 @@ function App() {
       .validate(value)
       .then(() => {
         setDinerFormErrors({
-          ...dinerFormErrors, [name]: ''
+          ...dinerFormErrors,
+          [name]: "",
         });
       })
       .catch((err) => {
         setDinerFormErrors({
-          ...dinerFormErrors, [name]: err.errors[0]
+          ...dinerFormErrors,
+          [name]: err.errors[0],
         });
-    });
+      });
 
     setDinerFormValues({
       ...dinerFormValues,
@@ -95,10 +90,9 @@ function App() {
   };
 
   useEffect(() => {
-    dinerSchema.isValid(dinerFormValues)
-    .then((valid) => {
+    dinerSchema.isValid(dinerFormValues).then((valid) => {
       setDinerButton(!valid);
-    })
+    });
   }, [dinerFormValues]);
 
   const operatorInputChange = (name, value) => {
@@ -107,14 +101,16 @@ function App() {
       .validate(value)
       .then(() => {
         setOperatorFormErrors({
-          ...operatorFormErrors, [name]: ''
+          ...operatorFormErrors,
+          [name]: "",
         });
       })
       .catch((err) => {
         setOperatorFormErrors({
-          ...operatorFormErrors, [name]: err.errors[0]
+          ...operatorFormErrors,
+          [name]: err.errors[0],
         });
-    });
+      });
 
     setOperatorFormValues({
       ...operatorFormValues,
@@ -123,20 +119,22 @@ function App() {
   };
 
   useEffect(() => {
-    operatorSchema.isValid(operatorFormValues)
-    .then((valid) => {
+    operatorSchema.isValid(operatorFormValues).then((valid) => {
       setOperatorButton(!valid);
-    })
+    });
   }, [operatorFormValues]);
 
   const dinerFormSubmit = () => {
     const newDiner = {
-      username: dinerFormValues.dinerUsername.trim(),
-      email: dinerFormValues.dinerEmail.trim(),
-      password: dinerFormValues.dinerPassword.trim(),
-      // dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
-      // dinerZipcode: dinerFormValues.dinerZipcode.trim(),
-      role: 'diner',
+
+      dinerUsername: dinerFormValues.dinerUsername.trim(),
+      dinerEmail: dinerFormValues.dinerEmail.trim(),
+      dinerPassword: dinerFormValues.dinerPassword.trim(),
+      dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
+      dinerZipcode: dinerFormValues.dinerZipcode.trim(),
+      role: "diner",
+      favoriteTrucks: [],
+
     };
 
     setUsers([...users, newDiner]);
@@ -161,10 +159,14 @@ function App() {
 
   const operatorFormSubmit = () => {
     const newOperator = {
-      username: operatorFormValues.operatorUsername.trim(),
-      email: operatorFormValues.operatorEmail.trim(),
-      password: operatorFormValues.operatorPassword.trim(),
-      role: 'operator',
+
+      operatorUsername: operatorFormValues.operatorUsername.trim(),
+      operatorEmail: operatorFormValues.operatorEmail.trim(),
+      operatorPassword: operatorFormValues.operatorPassword.trim(),
+      operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
+      role: "operator",
+      ownedTrucks: [],
+
     };
 
     setUsers([...users, newOperator]);
@@ -185,56 +187,37 @@ function App() {
     })
   }
 
-  const loginInputChange = (name, value) => {
-    yup
-      .reach(loginSchema, name)
-      .validate(value)
-      .then(() => {
-        setLoginFormErrors({
-          ...loginFormErrors, [name]: ''
-        });
-      })
-      .catch((err) => {
-        setLoginFormErrors({
-          ...loginFormErrors, [name]: err.errors[0]
-        });
-    });
-
-    setLoginFormValues({
-      ...loginFormValues,
-      [name]: value
-    });
-  };
-
-  useEffect(() => {
-    loginSchema.isValid(loginFormValues)
-    .then((valid) => {
-      setLoginButton(!valid);
-    })
-  }, [loginFormValues]);
-
-  const loginFormSubmit = () => {
-    console.log('success!');
-    // this will be axios POST instead of console.log. Thats there just for testing and the form does work properly (just doesn't send any actual data)
-    setLoginFormValues(initialLoginFormValues);
-  };
-
   return (
     <div className="App">
       <NavBar />
-      <Route path='/login-form'>
-          <LoginForm values={loginFormValues} loginChange={loginInputChange} loginFormSubmit={loginFormSubmit} loginDisabled={loginButton} errors={loginFormErrors}/>
-        </Route>
+
       <Switch>
-        <Route exact path='/register-form'>
-          <RegisterForm dinerChange={dinerInputChange} dinerDisabled={dinerButton} dinerFormSubmit={dinerFormSubmit} dinerValues={dinerFormValues} operatorChange={operatorInputChange} operatorDisabled={operatorButton} operatorFormSubmit={operatorFormSubmit} operatorValues={operatorFormValues} dinerErrors={dinerFormErrors} operatorErrors={operatorFormErrors}/>
+        <Route path="/register-form">
+          <RegisterForm
+            dinerChange={dinerInputChange}
+            dinerDisabled={dinerButton}
+            dinerFormSubmit={dinerFormSubmit}
+            dinerValues={dinerFormValues}
+            operatorChange={operatorInputChange}
+            operatorDisabled={operatorButton}
+            operatorFormSubmit={operatorFormSubmit}
+            operatorValues={operatorFormValues}
+            dinerErrors={dinerFormErrors}
+            operatorErrors={operatorFormErrors}
+          />
         </Route>
-        <Route path="/diner-dashboard" component={DinerDash} />
-    
-        <Route path="/operator-dashboard" component = {OperatorDash} />
-       
-    </Switch>
-    <Footer />
+        <Route path="/login-form">
+          <LoginForm />
+        </Route>
+        <SecureRoute path="/diner-dashbord">
+          <DinerDash />
+        </SecureRoute>
+        <SecureRoute path="/operator-dashbord">
+          <OperatorDash />
+        </SecureRoute>
+      </Switch>
+      <Footer />
+
     </div>
   );
 }
