@@ -3,16 +3,17 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import dinerSchema from "./validation/dinerFormSchema";
 import operatorSchema from "./validation/operatorFormSchema";
-
+import axios from "axios"
 import DinerDash from "./components/DinerDash";
 import OperatorDash from "./components/OperatorDash";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { SecureRoute } from "./components/PrivateRoute";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 const initialUsers = [];
 
@@ -127,13 +128,10 @@ function App() {
   const dinerFormSubmit = () => {
     const newDiner = {
 
-      dinerUsername: dinerFormValues.dinerUsername.trim(),
-      dinerEmail: dinerFormValues.dinerEmail.trim(),
-      dinerPassword: dinerFormValues.dinerPassword.trim(),
-      dinerConfirmPassword: dinerFormValues.dinerConfirmPassword.trim(),
-      dinerZipcode: dinerFormValues.dinerZipcode.trim(),
+      username: dinerFormValues.dinerUsername.trim(),
+      email: dinerFormValues.dinerEmail.trim(),
+      password: dinerFormValues.dinerPassword.trim(),
       role: "diner",
-      favoriteTrucks: [],
 
     };
 
@@ -149,23 +147,22 @@ function App() {
     .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newDiner)
     .then((res) => {
       console.log(res)
-      history.push('/diner-dashboard')
+      //localStorage.setItem('token', res.data.payload);
+      history.push('/login-form') //unless we can get token
       //setDinerFormValues(initialDinerFormValues);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.response);
     })
   }
 
   const operatorFormSubmit = () => {
     const newOperator = {
 
-      operatorUsername: operatorFormValues.operatorUsername.trim(),
-      operatorEmail: operatorFormValues.operatorEmail.trim(),
-      operatorPassword: operatorFormValues.operatorPassword.trim(),
-      operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
+      username: operatorFormValues.operatorUsername.trim(),
+      email: operatorFormValues.operatorEmail.trim(),
+      password: operatorFormValues.operatorPassword.trim(),
       role: "operator",
-      ownedTrucks: [],
 
     };
 
@@ -179,7 +176,7 @@ function App() {
     .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newOperator)
     .then((res) => {
       console.log(res)
-      history.push('/operator-dashboard')
+      history.push('/login-form')
       //setDinerFormValues(initialDinerFormValues);
     })
     .catch((err) => {
@@ -206,15 +203,12 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
-        <Route path="/login-form">
-          <LoginForm />
-        </Route>
-        <SecureRoute path="/diner-dashbord">
-          <DinerDash />
-        </SecureRoute>
-        <SecureRoute path="/operator-dashbord">
+        <Route  path="/login-form" component = {LoginForm}/>
+        <SecureRoute path="/diner-dashboard" component={DinerDash}/>
+        <SecureRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureRoute>
+        <Route path="/" component = {LoginForm}/>
       </Switch>
       <Footer />
 

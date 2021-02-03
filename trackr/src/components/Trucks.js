@@ -49,6 +49,7 @@ export default function Trucks(props) {
     
     const runEffect = () => {
         //  setCurrentUser(currentUserData)
+        debugger
         axiosWithAuth()
         .get('/api/trucks')
         .then(res => {
