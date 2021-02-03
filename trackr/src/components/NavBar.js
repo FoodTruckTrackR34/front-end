@@ -1,21 +1,15 @@
 import React from "react";
 
-import { Route, Switch, Link } from "react-router-dom";
-import { SecureRoute } from "../components/PrivateRoute";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <>
-      <Link>Home</Link>
+      <Link to="/">Home</Link>
       <br />
-      <Link>Login</Link>
+      <Link to="/login-form">Login</Link>
       <br />
-      <Link>Log Out</Link>
-
-      <Switch>
-        <Route />
-        <SecureRoute />
-      </Switch>
+      <Link to="/logout">Log Out</Link>
     </>
   );
 };
