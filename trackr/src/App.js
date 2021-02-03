@@ -1,3 +1,4 @@
+
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import RegisterForm from "./components/RegisterForm";
@@ -48,6 +49,7 @@ const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
 function App() {
+  const history = useHistory()
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(
     initialDinerFormValues
@@ -124,6 +126,7 @@ function App() {
 
   const dinerFormSubmit = () => {
     const newDiner = {
+
       dinerUsername: dinerFormValues.dinerUsername.trim(),
       dinerEmail: dinerFormValues.dinerEmail.trim(),
       dinerPassword: dinerFormValues.dinerPassword.trim(),
@@ -131,55 +134,63 @@ function App() {
       dinerZipcode: dinerFormValues.dinerZipcode.trim(),
       role: "diner",
       favoriteTrucks: [],
+
     };
 
     setUsers([...users, newDiner]);
     setDinerFormValues(initialDinerFormValues);
-    // postNewDiner(newDiner);
+    postNewDiner(newDiner);
+
+
   };
 
-  // const postNewDiner = (newDiner) => {
-  //   axios
-  //   .post('https://reqres.in/api/users', newDiner)
-  //   .then((res) => {
-  //     setUsers([...users, res.data]);
-  //     setDinerFormValues(initialDinerFormValues);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  const postNewDiner = (newDiner) => {
+    axios
+    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newDiner)
+    .then((res) => {
+      console.log(res)
+      history.push('/diner-dashboard')
+      //setDinerFormValues(initialDinerFormValues);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   const operatorFormSubmit = () => {
     const newOperator = {
+
       operatorUsername: operatorFormValues.operatorUsername.trim(),
       operatorEmail: operatorFormValues.operatorEmail.trim(),
       operatorPassword: operatorFormValues.operatorPassword.trim(),
       operatorConfirmPassword: operatorFormValues.operatorConfirmPassword.trim(),
       role: "operator",
       ownedTrucks: [],
+
     };
 
     setUsers([...users, newOperator]);
     setOperatorFormValues(initialOperatorFormValues);
-    // postNewOperator(newOperator);
+    postNewOperator(newOperator);
   };
 
-  // const postNewOperator = (newOperator) => {
-  //   axios
-  //   .post('https://reqres.in/api/users', newOperator)
-  //   .then((res) => {
-  //     setUsers([...users, res.data]);
-  //     setOperatorFormValues(initialOperatorFormValues);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  const postNewOperator = (newOperator) => {
+    axios
+    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newOperator)
+    .then((res) => {
+      console.log(res)
+      history.push('/operator-dashboard')
+      //setDinerFormValues(initialDinerFormValues);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <div className="App">
       <NavBar />
+
       <Switch>
         <Route path="/register-form">
           <RegisterForm
@@ -206,6 +217,7 @@ function App() {
         </SecureRoute>
       </Switch>
       <Footer />
+
     </div>
   );
 }
