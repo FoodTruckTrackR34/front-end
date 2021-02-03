@@ -39,7 +39,7 @@ export default function TruckCard(props) {
     return(
         <div className="truckCard-container">
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br/>
-            This is a truck with id: {truck.id}
+            This is a truck with id: {truck.truck_id}
             <h3> Name of Truck </h3>
             <h4> Cuisine: {truck.cuisineType}</h4>
             <h4> Rating: {truck.avgCustomerRatings}/5 </h4>
