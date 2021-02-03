@@ -49,11 +49,11 @@ const StyledLogoContainer = styled.div`
 const StyledHomeLink = styled.div`
   // border: solid 1px brown;
   margin-left: 3%;
-  font-size: 2em;
+  font-size: 1.5em;
 
   a {
     text-decoration: none;
-    color: #77B255;
+    color: #808285;
     text-shadow: 2px 2px #ececec;
     transition: .3s;
   }
@@ -66,11 +66,11 @@ const StyledHomeLink = styled.div`
 const StyledLink = styled.div`
   // border: solid 1px yellow;
   margin-left: 5%;
-  font-size: 2em;
+  font-size: 1.5em;
 
   a {
     text-decoration: none;
-    color: #77B255;
+    color: #808285;
     text-shadow: 2px 2px #ececec;
     transition: .3s;
   }
