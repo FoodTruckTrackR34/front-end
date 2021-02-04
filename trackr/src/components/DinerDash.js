@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar"
 import {TrucksContext} from '../contexts/TrucksContext'
 import {UserContext} from '../contexts/UserContext'
 import { axiosWithAuth } from "../utils/axiosWithAuth"
+import styled from 'styled-components';
 
 const currentUserData = {
     id: 1,
@@ -48,11 +49,39 @@ export default function DinerDash() {
 
     return(
         <TrucksContext.Provider value={{trucks, setTrucks, searchCriteria, setSearchCriteria}}>
-            <div className="dashboard-container">
-                <SearchBar />    
-                <DinerProfile/>
-                <Trucks />
-            </ div>
+            <SearchBar /> 
+
+            <StyledDashboardContainer>  
+                <StyledDinerProfileContainer>
+                    <DinerProfile/>
+                </StyledDinerProfileContainer>
+
+                <StyledTrucksContainer>
+                    <Trucks />
+                </StyledTrucksContainer>
+
+            </StyledDashboardContainer>
+
        </TrucksContext.Provider>
     )
 }
+
+const StyledDashboardContainer = styled.div`
+  //border: solid 1px red;
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledDinerProfileContainer = styled.div`
+  // border: solid 1px blue;
+  border-right: solid 1px lightgray;
+  padding: 5%;
+  width: 30%;
+`;
+
+const StyledTrucksContainer = styled.div`
+  // border: solid 1px green;
+  border-left: solid 1px lightgray;
+  padding: 5%;
+  width: 60%;
+`;

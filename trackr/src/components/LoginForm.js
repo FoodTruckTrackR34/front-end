@@ -139,7 +139,6 @@ code that was already in the Login.js component is placed below and everything i
 
         </StyledInputDiv>
         <StyledLoginButton disabled={loginButton}>Login!</StyledLoginButton>
-        <button disabled={loginButton}>Login!</button>
         <p> {authError} </p>
       </form>
       <p>

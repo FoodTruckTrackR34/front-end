@@ -3,6 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TrucksContext } from "../contexts/TrucksContext";
 import { UserContext } from "../contexts/UserContext";
+import styled from 'styled-components';
 
 export default function TruckCard(props) {
   // const {truck, isDiner, favorites, setFavorites, key} = props
@@ -46,10 +47,9 @@ export default function TruckCard(props) {
   //   };
 
   return (
-    <div className="truckCard-container">
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br />
-      <h2>Example Truck Name {/*truck.truckName 'string'*/} </h2>
-      <img src="exampleImage.png" /> {/*truck.imgURL 'string'*/}
+    <StyledTruckCardContainer>
+      <h1>Example Truck Name {/*truck.truckName 'string'*/} </h1>
+      <img src="https://i.pinimg.com/originals/a4/87/1b/a4871b6129a866af0354fe86b9bf01f6.jpg" /> {/*truck.imgURL 'string'*/}
       <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
       <h4>
         Average Customer Rating: 4.4/5{" "}
@@ -61,7 +61,7 @@ export default function TruckCard(props) {
       </p>
       <p>Departure Time: 6:00pm PST {/*truck.departureTime*/} </p>
       <a href="/menu-items">
-        View Menu Items{" "}
+        <StyledViewMenuItems>View Menu Items</StyledViewMenuItems>{" "}
         {/*.map over menuItems array ... expand this on same page? or new page?*/}{" "}
       </a>
       <br />
@@ -71,6 +71,7 @@ export default function TruckCard(props) {
         Been here? Leave a Review!{" "}
         {/*link to a page with a form that adds the review to the customer ratings array?*/}{" "}
       </a>
+      
       <p>
         ❤️ one of your faves! -or- ♡ add to faves{" "}
         {/* this will be generated based on code below */}{" "}
@@ -96,13 +97,32 @@ export default function TruckCard(props) {
         </div>
       )}
       {/* ^^ Only display the above when the card IS expanded */}
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
       {/* ^^ Only display the above when the card IS expanded */}
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    </div>
+      </StyledTruckCardContainer>
   );
-}
+      }
 
 // create a component titled Menu which maps over all menu items and creates a subcomponent titled MenuItemCard for each item.
 // Menu is visible when truckcard isExpanded
 // MenuItemCard can also be expanded ~stretch~
+
+const StyledTruckCardContainer = styled.div`
+  // border: solid 1px red;
+  margin-bottom: 4%;
+  box-shadow: 0px 0px 10px gray;
+  padding: 5%;
+
+  img {
+    width: 90%;
+  }
+`;
+
+const StyledViewMenuItems = styled.button`
+  color: white;
+  background-color: #DA3647;
+  border: none;
+  padding: 2% 5% 2% 5%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 5%;
+`;

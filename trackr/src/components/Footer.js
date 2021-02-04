@@ -1,16 +1,27 @@
 import React from "react";
+import styled from 'styled-components';
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <h4> Food Truck TrackR </h4>
-      <strong> © 2021</strong> All Rights Reserved
-    </footer>
+    <StyledFooterContainer>
+      <p>Food Truck TrackR</p>
+      <span>© 2021 All Rights Reserved.</span>
+    </StyledFooterContainer>
   );
 }
+
+const StyledFooterContainer = styled.div`
+  // border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2%;
+  margin-top: 2%;
+  background-color: #FFE8B6;
+
+  p {
+    font-weight: bold;
+    margin-bottom: .5%;
+  }
+`;
