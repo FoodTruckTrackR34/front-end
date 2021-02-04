@@ -3,14 +3,14 @@
 // looking for username and password on the back end
 // access key?
 // send to back end via POST (onSubmit())
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {UserContext} from "../contexts/UserContext"
 import styled from "styled-components";
 import loginSchema from "../validation/loginFormSchema";
 import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-
 
 const initialLoginFormValues = {
   username: "",
@@ -24,7 +24,7 @@ const initialLoginFormErrors = {
 const initialLoginDisabled = true;
 
 export default function LoginForm() {
-
+  const {currentUser, setCurrentUser} = useContext(UserContext) //allows me to access state from App.js via Context.Provider
   const {push} = useHistory()
 
   const [loginFormValues, setLoginFormValues] = useState(
@@ -84,23 +84,21 @@ code that was already in the Login.js component is placed below and everything i
     evt.preventDefault();
     //axios needed
     axios
-      .post("https://food-truck-back-end-lambda.herokuapp.com/api/auth/login", loginFormValues)
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/login",
+        loginFormValues
+      )
       .then((res) => {
         console.log(res.data);
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', res.data.role);
-
-        // axios
-        //.get()
-        // get array of users
-        // filter through array and return user if loginFormValues.username === user.username
-        // if user.role === "diner"
+        localStorage.setItem('role', res.data.role); // possibly redundant
+        setCurrentUser(res.data.userData) // from Context
         res.data.role ==="diner" ?
         push("/diner-dashboard")  :
         push("/operator-dashboard")
-        // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
+        debugger
         setAuthError(err.response.data.message);
       });
     //
@@ -120,6 +118,7 @@ code that was already in the Login.js component is placed below and everything i
               onChange={loginOnChange}
               placeholder='Username'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.username}
             </StyledLoginErrors>
@@ -133,9 +132,11 @@ code that was already in the Login.js component is placed below and everything i
               onChange={loginOnChange}
               placeholder='Password'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.password}
             </StyledLoginErrors>
+
         </StyledInputDiv>
         <StyledLoginButton disabled={loginButton}>Login!</StyledLoginButton>
         <button disabled={loginButton}>Login!</button>
