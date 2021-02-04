@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
+const initialActiveDinerForm = true;
+const initialActiveOperatorForm = false;
+
 export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit, dinerErrors, operatorErrors }) {
+
+    const [activeDinerForm, setActiveDinerForm] = useState(initialActiveDinerForm);
+    const [activeOperatorForm, setActiveOperatorForm] = useState(initialActiveOperatorForm);
 
     const dinerOnChange = (evt) => {
         const { name, value } = evt.target;
@@ -23,9 +29,18 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
         operatorFormSubmit();
     };
 
+    const switchActive = () => {
+        setActiveDinerForm(!activeDinerForm);
+        setActiveOperatorForm(!activeOperatorForm);
+    };
+
     return (
         <StyledRegistrationContainer>
-            <StyledDinerContainer>
+            <StyledDinerContainer active={activeDinerForm}>
+                <StyledSwitchDiv>
+                    <p>Looking to create an <b>Operator</b> profile instead?</p> 
+                    <button onClick={switchActive}>Click here</button>
+                </StyledSwitchDiv>
                 <h2>Create Diner Profile</h2>
                 <form onSubmit={dinerSubmit}>
 
@@ -87,63 +102,67 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             </input>
                         </label>
                     </div>
-                    <button disabled={dinerDisabled}>Submit</button>
+                    <StyledDinerButton disabled={dinerDisabled}>Create Diner Profile</StyledDinerButton>
 
                 </form>
             </StyledDinerContainer>
 
-            <StyledOperatorContainer>
+            <StyledOperatorContainer active={activeOperatorForm}>
+                <StyledSwitchDiv>
+                    <p>Looking to create a <b>Diner</b> profile instead?</p> 
+                    <button onClick={switchActive}>Click here</button>
+                </StyledSwitchDiv>
                 <h2>Create Operator Profile</h2>
                 <form onSubmit={operatorSubmit}>
 
                     <div>
                         <label>Username:
-                        <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                             <input
                             type='text'
                             name='operatorUsername'
                             value={operatorValues.operatorUsername}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Email:
-                        <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                             <input
                             type='email'
                             name='operatorEmail'
                             value={operatorValues.operatorEmail}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Password:
-                        <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorPassword'
                             value={operatorValues.operatorPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Confirm Password:
-                        <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorConfirmPassword'
                             value={operatorValues.operatorConfirmPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
-                    <button disabled={operatorDisabled}>Submit</button>
+                    <StyledOperatorButton disabled={operatorDisabled}>Create Operator Profile</StyledOperatorButton>
 
                 </form>
             </StyledOperatorContainer>
@@ -152,25 +171,97 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 };
 
 const StyledRegistrationContainer = styled.div`
-    border: solid 1px red;
+    // border: solid 1px red;
+    display: flex;
+    justify-content: center;
 `;
 
 const StyledDinerContainer = styled.div`
-    border: solid 1px blue;
+    // border: solid 1px blue;
+    width: 35%;
 
     input {
-        margin: 0 0 1% .3%;
+        margin: 2% 0 1% 1%;
+        padding: 1%;
     }
+
+    ${props => (props.active === true ? null : `display: none;`)}
+`;
+
+const StyledDinerButton = styled.button`
+    background-color:  #FFCC4D;
+    color: #585858;
+    margin-top: 3%;
+    padding: 2% 6% 2% 6%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+
+    :hover {
+        background-color:#77B255;
+        color: white;
+    }
+    ${props => (props.disabled === true ? `background-color: #b7b7b7; color: black; cursor: default; :hover{background-color: #b7b7b7; color: black};` : null)}
+}
 `;
 
 const StyledOperatorContainer = styled.div`
-    border: solid 1px green;
+    // border: solid 1px green;
+    width: 35%;
 
     input {
-        margin: 0 0 1% .3%;
+        margin: 2% 0 1% 1%;
+        padding: 1%;
     }
+
+    ${props => (props.active === true ? null : `display: none;`)}
+`;
+
+const StyledOperatorButton = styled.button`
+    background-color:  #FFCC4D;
+    color: #585858;
+    margin-top: 3%;
+    padding: 2% 6% 2% 6%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+
+    :hover {
+        background-color:#77B255;
+        color: white;
+    }
+    ${props => (props.disabled === true ? `background-color: #b7b7b7; color: black; cursor: default; :hover{background-color: #b7b7b7; color: black};` : null)}
+}
 `;
 
 const StyledErrorDiv = styled.div`
     color: red;
+`;
+
+const StyledSwitchDiv = styled.div`
+    border-top: solid 1px #a7a7a7;
+    border-bottom: solid 1px #a7a7a7;
+    padding-top: 1%;
+    padding-bottom: 5%;
+    text-align: center;
+    margin-top: 3%;
+
+    button {
+        background-color:  #FFCC4D;
+        color: #585858;
+        padding: 2% 4% 2% 4%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .3s;
+
+        :hover {
+            background-color:#77B255;
+            color: white;
+        }
+    }
 `;

@@ -12,7 +12,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
-
 const initialLoginFormValues = {
   username: "",
   password: "",
@@ -85,7 +84,10 @@ code that was already in the Login.js component is placed below and everything i
     evt.preventDefault();
     //axios needed
     axios
-      .post("https://food-truck-back-end-lambda.herokuapp.com/api/auth/login", loginFormValues)
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/login",
+        loginFormValues
+      )
       .then((res) => {
         console.log(res.data);
         localStorage.setItem('token', res.data.token);
@@ -94,7 +96,6 @@ code that was already in the Login.js component is placed below and everything i
         res.data.role ==="diner" ?
         push("/diner-dashboard")  :
         push("/operator-dashboard")
-        // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
         debugger
@@ -110,34 +111,34 @@ code that was already in the Login.js component is placed below and everything i
       <h2>Login Here!</h2>
       <form onSubmit={loginSubmit}>
         <StyledInputDiv>
-          <label>
-            Username:
             <input
               type="text"
               name="username"
               value={loginFormValues.username}
               onChange={loginOnChange}
+              placeholder='Username'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.username}
             </StyledLoginErrors>
-          </label>
         </StyledInputDiv>
 
         <StyledInputDiv>
-          <label>
-            Password:
             <input
               type="password"
               name="password"
               value={loginFormValues.password}
               onChange={loginOnChange}
+              placeholder='Password'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.password}
             </StyledLoginErrors>
-          </label>
+
         </StyledInputDiv>
+        <StyledLoginButton disabled={loginButton}>Login!</StyledLoginButton>
         <button disabled={loginButton}>Login!</button>
         <p> {authError} </p>
       </form>
@@ -151,11 +152,37 @@ code that was already in the Login.js component is placed below and everything i
 }
 
 const StyledLoginContainer = styled.div`
-  border: solid 1px red;
+  // border: solid 1px red;
+  background-color: white;
+  padding: 2%;
+  border-radius: 15px;
+  box-shadow: 0px 0px 12px black;
+  width: 35%;
 
   input {
-    margin: 0 0 1% 0.3%;
+    margin: 0 0 3% 1%;
+    padding: 1%;
   }
+`;
+
+const StyledLoginButton = styled.button`
+  background-color: #FFCC4D;
+    font-weight: bold;
+    border: none;
+    padding: 3% 7% 3% 7%;
+    border-radius: 5px;
+    color: #585858;
+    margin-top: 2%;
+    transition: .3s;
+    cursor: pointer;
+  }
+
+  :hover {
+    background-color:#77B255;
+    color: white;
+  }
+
+  ${props => (props.disabled === true ? `background-color: #b7b7b7; color: black; cursor: default; :hover{background-color: #b7b7b7; color: black};` : null)}
 `;
 
 const StyledInputDiv = styled.div`

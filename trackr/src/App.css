@@ -12,6 +12,13 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.heart-rate {
+  display: flex;
+  justify-content: center;
+  border: none;
+  text-decoration: none;
+  float: center;
+}
 
 .App-header {
   background-color: #282c34;
