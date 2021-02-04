@@ -48,7 +48,7 @@ export default function TruckCard(props) {
 
   return (
     <StyledTruckCardContainer>
-      <h1>Example Truck Name {/*truck.truckName 'string'*/} </h1>
+      <h1>{truck.truckName}{/*truck.truckName 'string'*/} </h1>
       <img src="https://i.pinimg.com/originals/a4/87/1b/a4871b6129a866af0354fe86b9bf01f6.jpg" /> {/*truck.imgURL 'string'*/}
       <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
       <h4>
