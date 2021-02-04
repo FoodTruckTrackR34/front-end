@@ -1,2 +1,2 @@
 import {createContext} from 'react';
-export const TrucksContext = createContext();
+export const TrucksContext = createContext([]);

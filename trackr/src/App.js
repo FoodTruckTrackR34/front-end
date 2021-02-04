@@ -14,7 +14,9 @@ import Footer from "./components/Footer";
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+import {UserContext} from './contexts/UserContext'
 import styled from 'styled-components';
+
  
 
 const initialUsers = [];
@@ -68,6 +70,7 @@ function App() {
   );
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
+  const [currentUser, setCurrentUser] = useState({})
 
   const dinerInputChange = (name, value) => {
     yup
@@ -205,17 +208,21 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
-        <Route path="/login-form" component={LoginForm} />
-        <SecureDinerRoute path="/diner-dashboard" component={DinerDash} />
+
+      <UserContext.Provider value={{currentUser, setCurrentUser}}>
+        <Route  path="/login-form">
+          <LoginForm />
+        </Route>
+        <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureOpRoute>
-
-        <Route path="/">
+        <Route exact path="/">
           <StyledBigImage>
             <LoginForm />
           </StyledBigImage>
         </Route>
+     </UserContext.Provider>
       </Switch>
       <Footer />
     </div>
