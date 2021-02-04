@@ -32,13 +32,13 @@ export default function OperatorDash() {
     // get trucks from api .then(setTrucks(res.data)).catch(setTrucks("Could not load trucks"))
 
     return(
-        <TrucksContext.Provider value={trucks}>
+        <TrucksContext.Provider value={{trucks, setTrucks}}>
  
             <SearchBar /> 
 
             <StyledDashboardContainer>
                 <StyledOperatorProfileContainer>  
-                    <OperatorProfile currentUser={currentUser}/>
+                    <OperatorProfile />
                 </StyledOperatorProfileContainer>
 
                 <StyledTrucksContainer>
