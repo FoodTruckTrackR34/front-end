@@ -18,7 +18,7 @@ const StyledFooterContainer = styled.div`
   align-items: center;
   padding-bottom: 2%;
   margin-top: 2%;
-  background-color: #FFE8B6;
+  background-color: #fff5de;
 
   p {
     font-weight: bold;

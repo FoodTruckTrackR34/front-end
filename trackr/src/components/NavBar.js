@@ -38,7 +38,7 @@ const StyledNavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: white; /*#FFE8B6*/
 
   img {
     height: 100px;
@@ -58,12 +58,13 @@ const StyledHomeLink = styled.div`
   a {
     text-decoration: none;
     color: #808285;
-    text-shadow: 2px 2px #ececec;
+    // text-shadow: 2px 2px #ececec;
     transition: .3s;
   }
 
   a:hover {
     color: #FFCC4D;
+    // color: #DA3647;
   }
 `;
 
@@ -75,11 +76,12 @@ const StyledLink = styled.div`
   a {
     text-decoration: none;
     color: #808285;
-    text-shadow: 2px 2px #ececec;
+    // text-shadow: 2px 2px #ececec;
     transition: .3s;
   }
 
   a:hover {
     color: #FFCC4D;
+    //color: #DA3647;
   }
 `;

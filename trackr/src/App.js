@@ -249,6 +249,7 @@ const StyledBigImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: -2%;
 `;
 
 const StyledLoginFormContainer = styled.div`
