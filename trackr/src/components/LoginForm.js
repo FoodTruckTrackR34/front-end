@@ -11,7 +11,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
-
 const initialLoginFormValues = {
   username: "",
   password: "",
@@ -24,8 +23,7 @@ const initialLoginFormErrors = {
 const initialLoginDisabled = true;
 
 export default function LoginForm() {
-
-  const {push} = useHistory()
+  const { push } = useHistory();
 
   const [loginFormValues, setLoginFormValues] = useState(
     initialLoginFormValues
@@ -84,20 +82,23 @@ code that was already in the Login.js component is placed below and everything i
     evt.preventDefault();
     //axios needed
     axios
-      .post("https://food-truck-back-end-lambda.herokuapp.com/api/auth/login", loginFormValues)
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/login",
+        loginFormValues
+      )
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', res.data.role);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.role);
 
         // axios
         //.get()
         // get array of users
         // filter through array and return user if loginFormValues.username === user.username
         // if user.role === "diner"
-        res.data.role ==="diner" ?
-        push("/diner-dashboard")  :
-        push("/operator-dashboard")
+        res.data.role === "diner"
+          ? push("/diner-dashboard")
+          : push("/operator-dashboard");
         // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
@@ -120,6 +121,7 @@ code that was already in the Login.js component is placed below and everything i
               onChange={loginOnChange}
               placeholder='Username'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.username}
             </StyledLoginErrors>
@@ -133,9 +135,11 @@ code that was already in the Login.js component is placed below and everything i
               onChange={loginOnChange}
               placeholder='Password'
             ></input>
+
             <StyledLoginErrors>
               {loginFormErrors.password}
             </StyledLoginErrors>
+
         </StyledInputDiv>
         <StyledLoginButton disabled={loginButton}>Login!</StyledLoginButton>
         <button disabled={loginButton}>Login!</button>

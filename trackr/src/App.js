@@ -1,4 +1,3 @@
-
 import "./App.css";
 import React, { useState, useEffect, createContext } from "react";
 import RegisterForm from "./components/RegisterForm";
@@ -7,7 +6,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import dinerSchema from "./validation/dinerFormSchema";
 import operatorSchema from "./validation/operatorFormSchema";
-import axios from "axios"
+import axios from "axios";
 import DinerDash from "./components/DinerDash";
 import OperatorDash from "./components/OperatorDash";
 import NavBar from "./components/NavBar";
@@ -53,7 +52,7 @@ const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
 function App() {
-  const history = useHistory()
+  const history = useHistory();
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(
     initialDinerFormValues
@@ -130,43 +129,40 @@ function App() {
 
   const dinerFormSubmit = () => {
     const newDiner = {
-
       username: dinerFormValues.dinerUsername.trim(),
       email: dinerFormValues.dinerEmail.trim(),
       password: dinerFormValues.dinerPassword.trim(),
       role: "diner",
-
     };
 
     setUsers([...users, newDiner]);
     setDinerFormValues(initialDinerFormValues);
     postNewDiner(newDiner);
-
-
   };
 
   const postNewDiner = (newDiner) => {
     axios
-    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newDiner)
-    .then((res) => {
-      console.log(res)
-      //localStorage.setItem('token', res.data.payload);
-      history.push('/login-form') //unless we can get token
-      //setDinerFormValues(initialDinerFormValues);
-    })
-    .catch((err) => {
-      console.log(err.response);
-    })
-  }
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/register",
+        newDiner
+      )
+      .then((res) => {
+        console.log(res);
+        //localStorage.setItem('token', res.data.payload);
+        history.push("/login-form"); //unless we can get token
+        //setDinerFormValues(initialDinerFormValues);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
   const operatorFormSubmit = () => {
     const newOperator = {
-
       username: operatorFormValues.operatorUsername.trim(),
       email: operatorFormValues.operatorEmail.trim(),
       password: operatorFormValues.operatorPassword.trim(),
       role: "operator",
-
     };
 
     setUsers([...users, newOperator]);
@@ -176,21 +172,24 @@ function App() {
 
   const postNewOperator = (newOperator) => {
     axios
-    .post('https://food-truck-back-end-lambda.herokuapp.com/api/auth/register', newOperator)
-    .then((res) => {
-      console.log(res)
-      history.push('/login-form')
-      //setDinerFormValues(initialDinerFormValues);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+      .post(
+        "https://food-truck-back-end-lambda.herokuapp.com/api/auth/register",
+        newOperator
+      )
+      .then((res) => {
+        console.log(res);
+        history.push("/login-form");
+        //setDinerFormValues(initialDinerFormValues);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="App">
       <NavBar />
-
+      <Menu />
       <Switch>
         <Route path="/register-form">
           <RegisterForm
@@ -206,11 +205,12 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
-        <Route  path="/login-form" component = {LoginForm}/>
-        <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
+        <Route path="/login-form" component={LoginForm} />
+        <SecureDinerRoute path="/diner-dashboard" component={DinerDash} />
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureOpRoute>
+
         <Route path="/">
           <StyledBigImage>
             <LoginForm />
@@ -218,7 +218,6 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-
     </div>
   );
 }
