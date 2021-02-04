@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
+const initialActiveDinerForm = true;
+const initialActiveOperatorForm = false;
+
 export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChange, operatorDisabled, dinerFormSubmit, dinerValues, operatorValues, operatorFormSubmit, dinerErrors, operatorErrors }) {
+
+    const [activeDinerForm, setActiveDinerForm] = useState(initialActiveDinerForm);
+    const [activeOperatorForm, setActiveOperatorForm] = useState(initialActiveOperatorForm);
 
     const dinerOnChange = (evt) => {
         const { name, value } = evt.target;
@@ -23,9 +29,18 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
         operatorFormSubmit();
     };
 
+    const switchActive = () => {
+        setActiveDinerForm(!activeDinerForm);
+        setActiveOperatorForm(!activeOperatorForm);
+    };
+
     return (
         <StyledRegistrationContainer>
-            <StyledDinerContainer>
+            <StyledDinerContainer active={activeDinerForm}>
+                <StyledSwitchDiv>
+                    <p>Looking to create an Operator profile instead?</p> 
+                    <button onClick={switchActive}>Click here</button>
+                </StyledSwitchDiv>
                 <h2>Create Diner Profile</h2>
                 <form onSubmit={dinerSubmit}>
 
@@ -92,55 +107,59 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                 </form>
             </StyledDinerContainer>
 
-            <StyledOperatorContainer>
+            <StyledOperatorContainer active={activeOperatorForm}>
+                <StyledSwitchDiv>
+                    <p>Looking to create a Diner profile instead?</p> 
+                    <button onClick={switchActive}>Click here</button>
+                </StyledSwitchDiv>
                 <h2>Create Operator Profile</h2>
                 <form onSubmit={operatorSubmit}>
 
                     <div>
                         <label>Username:
-                        <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                             <input
                             type='text'
                             name='operatorUsername'
                             value={operatorValues.operatorUsername}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorUsername}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Email:
-                        <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                             <input
                             type='email'
                             name='operatorEmail'
                             value={operatorValues.operatorEmail}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorEmail}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Password:
-                        <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorPassword'
                             value={operatorValues.operatorPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorPassword}</StyledErrorDiv>
                         </label>
                     </div>
 
                     <div>
                         <label>Confirm Password:
-                        <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                             <input
                             type='password'
                             name='operatorConfirmPassword'
                             value={operatorValues.operatorConfirmPassword}
                             onChange={operatorOnChange}>
                             </input>
+                            <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
                     <button disabled={operatorDisabled}>Submit</button>
@@ -157,10 +176,13 @@ const StyledRegistrationContainer = styled.div`
 
 const StyledDinerContainer = styled.div`
     border: solid 1px blue;
+    transition: .3s;
 
     input {
         margin: 0 0 1% .3%;
     }
+
+    ${props => (props.active === true ? null : `display: none;`)}
 `;
 
 const StyledOperatorContainer = styled.div`
@@ -169,8 +191,15 @@ const StyledOperatorContainer = styled.div`
     input {
         margin: 0 0 1% .3%;
     }
+
+    ${props => (props.active === true ? null : `display: none;`)}
 `;
 
 const StyledErrorDiv = styled.div`
     color: red;
+`;
+
+const StyledSwitchDiv = styled.div`
+    border: solid 1px orange;
+    text-align: center;
 `;
