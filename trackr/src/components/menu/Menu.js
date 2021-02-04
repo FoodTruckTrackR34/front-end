@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MenuItem from "./MenuItem";
 
 const menuInitialValues = {
   itemName: "",
@@ -18,7 +19,7 @@ const menuInitialValues = {
 
 const menuObj = [
   {
-    id: null,
+    id: 0,
     itemName: "Burger",
     itemDescription: " fire food for the tummy",
     itemPhoto: [],
@@ -34,6 +35,7 @@ const menuObj = [
     },
   },
   {
+    id: 1,
     itemName: "Fish Fillet",
     itemDescription: " fire food for the tummy",
     itemPhoto: [],
@@ -48,12 +50,59 @@ const menuObj = [
     },
   },
   {
+    id: 2,
     itemName: "Sirlion Steak",
     itemDescription: " fire food for the tummy",
     itemPhoto: [],
     itemPrice: 55.99,
-    customerRatings: [4, 3],
+    customerRatings: [4, 3, 4, 1],
     customerRatingAvg: function () {
+      const avg = this.customerRatings.reduce(function (acc, index) {
+        return acc + index;
+      }, 0);
+      const average = avg / this.customerRatings.length;
+      return average.toFixed(2);
+    },
+  },
+  {
+    id: 3,
+    itemName: "Burger",
+    itemDescription: " fire food for the tummy",
+    itemPhoto: [],
+    itemPrice: 15.99,
+    customerRatings: [4, 2, 2, 5],
+    customerRatingAvg: function Average() {
+      let avg = this.customerRatings.reduce((acc, index) => {
+        return acc + index;
+      }, 0);
+
+      const average = avg / this.customerRatings.length;
+      return average.toFixed(2);
+    },
+  },
+  {
+    id: 4,
+    itemName: "Fish Fillet",
+    itemDescription: " fire food for the tummy",
+    itemPhoto: [],
+    itemPrice: 5.99,
+    customerRatings: [1, 2, 5],
+    customerRatingAvg: function () {
+      const avg = this.customerRatings.reduce(function (acc, index) {
+        return acc + index;
+      }, 0);
+      const average = avg / this.customerRatings.length;
+      return average.toFixed(2);
+    },
+  },
+  {
+    id: 5,
+    itemName: "Sirlion Steak",
+    itemDescription: " fire food for the tummy",
+    itemPhoto: [],
+    itemPrice: 55.99,
+    customerRatings: [4, 3, 4, 1],
+    customerRatingAvg: function Average() {
       const avg = this.customerRatings.reduce(function (acc, index) {
         return acc + index;
       }, 0);
@@ -64,46 +113,29 @@ const menuObj = [
 ];
 
 function Menu() {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [menuItem, setMenuItem] = useState(menuInitialValues);
-
-  const expandHandler = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   return (
     <div className="menu-list">
       <h4>Menu List</h4>
-      <ol>
-        {menuObj.map((menu) => {
-          // console.log(menu);
-          return (
-            <li>
-              <img src="../" alt="random" />
-              <h5> Name: {menu.itemName} </h5>
-              <p className="menu-price">Price: {menu.itemPrice} </p>
-              <p className="menu-rating">
-                Rating:{menu.customerRatings.length} 🤍🤍🤍🤍🤍
-              </p>
-              {!isExpanded && <span onClick={expandHandler}>More...</span>}
-              {isExpanded && (
-                <div>
-                  <p className="menu-averageRating">
-                    Customer Rating: {menu.customerRatingAvg()}/5
-                  </p>
-                  <p className="menu-description">
-                    Description:{menu.itemDescription}
-                  </p>
-                  <br />
-                  <span onClick={expandHandler}>Less...</span>
-                </div>
-              )}
-              <br />
-              ------------------------------------------
-            </li>
-          );
-        })}
-      </ol>
+      <div>
+        <ol>
+          {menuObj.map((menu) => {
+            // console.log(menu);
+            return (
+              <li
+                style={{
+                  textDecoration: "none",
+                  width: "20%",
+                  margin: "0 auto",
+                }}
+              >
+                <MenuItem key={menu.id} menu={menu} />
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </div>
   );
 }
