@@ -192,7 +192,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Menu />
+      {/* <Menu /> */}
       <Switch>
         <Route path="/register-form">
           <RegisterForm
