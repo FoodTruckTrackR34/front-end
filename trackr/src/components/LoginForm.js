@@ -32,6 +32,7 @@ export default function LoginForm() {
   const [loginFormErrors, setLoginFormErrors] = useState(
     initialLoginFormErrors
   );
+  const [authError, setAuthError] = useState("")
 
   const loginInputChange = (name, value) => {
     yup
@@ -101,7 +102,7 @@ code that was already in the Login.js component is placed below and everything i
         // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
-        console.log(err.response);
+        setAuthError(err.response.data.message);
       });
     //
     // console.log("success!");
@@ -138,6 +139,7 @@ code that was already in the Login.js component is placed below and everything i
           </label>
         </StyledInputDiv>
         <button disabled={loginButton}>Login!</button>
+        <p> {authError} </p>
       </form>
       <p>
         Need an Account?
