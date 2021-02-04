@@ -5,6 +5,7 @@ import OperatorProfile from "./OperatorProfile"
 import {TrucksContext} from '../contexts/TrucksContext'
 import axios from "axios"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
+import styled from 'styled-components';
 
 const currentUserData = {
     id: 1,
@@ -49,12 +50,40 @@ export default function OperatorDash() {
     // get trucks from api .then(setTrucks(res.data)).catch(setTrucks("Could not load trucks"))
 
     return(
-        <div className="dashboard-container">
         <TrucksContext.Provider value={trucks}>
-            <SearchBar />    
-            <OperatorProfile currentUser={currentUser}/>
-            <Trucks />
+ 
+            <SearchBar /> 
+
+            <StyledDashboardContainer>
+                <StyledOperatorProfileContainer>  
+                    <OperatorProfile currentUser={currentUser}/>
+                </StyledOperatorProfileContainer>
+
+                <StyledTrucksContainer>
+                    <Trucks />
+                </StyledTrucksContainer>
+            </StyledDashboardContainer>
+
         </TrucksContext.Provider>
-        </ div>
     )
 }
+
+const StyledDashboardContainer = styled.div`
+    //border: solid 1px red;
+    display: flex;
+    justify-content: center;
+`;
+
+const StyledOperatorProfileContainer = styled.div`
+    // border: solid 1px blue;
+    border-right: solid 1px lightgray;
+    padding: 5%;
+    width: 30%;
+`;
+
+const StyledTrucksContainer = styled.div`
+    // border: solid 1px green;
+    border-left: solid 1px lightgray;
+    padding: 5%;
+    width: 60%;
+`;
