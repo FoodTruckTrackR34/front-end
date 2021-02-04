@@ -7,7 +7,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 const initialFormValues = 
 
                         {cuisineType: "",
-                        departureTime: "",
+                        departureTime: "", //may change
                         imageOfTruck: "",
                         latitude: "",
                         longitude: "",
@@ -25,7 +25,12 @@ export default function OperatorProfile() {
   
 
     const postNewTruck = (evt) => {
-        const newTruck = {...formValues, user_id: Number(currentUser.user_id)}
+        let newTruck = {...formValues, user_id: Number(currentUser.user_id)}
+        newTruck = {...newTruck,
+             latitude: Number(formValues.latitude), 
+             longitude: Number(formValues.longitude),
+             departureTime:null } //may change 
+             //
         axiosWithAuth()
         .post("api/trucks", newTruck)
         .then( res => {
@@ -43,8 +48,6 @@ export default function OperatorProfile() {
         evt.preventDefault();
         setIsEditing(false);
         postNewTruck();
-        //api call to add truck
-        //
     }
 
     const toggleDisplayAddForm = () => {
