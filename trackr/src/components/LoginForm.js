@@ -24,7 +24,7 @@ const initialLoginFormErrors = {
 const initialLoginDisabled = true;
 
 export default function LoginForm() {
-  const {currentUser, setCurrentUser} = useContext(UserContext) //testing
+  const {currentUser, setCurrentUser} = useContext(UserContext) //allows me to access state from App.js via Context.Provider
   const {push} = useHistory()
 
   const [loginFormValues, setLoginFormValues] = useState(
@@ -91,8 +91,8 @@ code that was already in the Login.js component is placed below and everything i
       .then((res) => {
         console.log(res.data);
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', res.data.role);
-        setCurrentUser(res.data.userData)
+        localStorage.setItem('role', res.data.role); // possibly redundant
+        setCurrentUser(res.data.userData) // from Context
         res.data.role ==="diner" ?
         push("/diner-dashboard")  :
         push("/operator-dashboard")

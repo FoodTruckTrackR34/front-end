@@ -14,8 +14,8 @@ const initialFormValues =
                         }
 
 export default function OperatorProfile() {
-    const {currentUser} = useContext(UserContext)
-    const {trucks} = useContext(TrucksContext)
+    const {currentUser, setCurrentUser} = useContext(UserContext)
+    const {trucks, setTrucks} = useContext(TrucksContext)
     const [isEditing, setIsEditing] = useState(false)
     const [formValues, setFormValues] = useState(initialFormValues)
     const [infoDisplay, setInfoDisplay] = useState(false)
@@ -30,6 +30,7 @@ export default function OperatorProfile() {
         .post("api/trucks", newTruck)
         .then( res => {
             console.log(res)
+            console.log(newTruck)
         }
         )
         .catch(err => {

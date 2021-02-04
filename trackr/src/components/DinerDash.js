@@ -21,6 +21,7 @@ const currentUserData = {
 
 export default function DinerDash() {
     const [trucks, setTrucks] = useState()
+    const [searchCriteria, setSearchCriteria] = useState()
     const currentUser = useContext(UserContext)
 
     const fetchTrucks = () => {
@@ -46,7 +47,7 @@ export default function DinerDash() {
     }, [])
 
     return(
-        <TrucksContext.Provider value={{trucks, setTrucks}}>
+        <TrucksContext.Provider value={{trucks, setTrucks, searchCriteria, setSearchCriteria}}>
             <div className="dashboard-container">
                 <SearchBar />    
                 <DinerProfile/>
