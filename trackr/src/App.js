@@ -15,9 +15,12 @@ import Footer from "./components/Footer";
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+
 import styled from "styled-components";
 import Logout from "./utils/Logout";
 import Menu from "./components/menu/Menu";
+import {UserContext} from './contexts/UserContext'
+
 
 const initialUsers = [];
 
@@ -70,6 +73,7 @@ function App() {
   );
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
+  const [currentUser, setCurrentUser] = useState({})
 
   const dinerInputChange = (name, value) => {
     yup
@@ -191,7 +195,6 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-
       <Switch>
         <Route path="/register-form">
           <RegisterForm
@@ -207,19 +210,25 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
-        <Route path="/login-form" component={LoginForm} />
-        <SecureOpRoute path="/menu-items" component={Menu} />
-        <SecureDinerRoute path="/diner-dashboard" component={DinerDash} />
+
+      <UserContext.Provider value={{currentUser, setCurrentUser}}>
+        <Route  path="/login-form">
+          <StyledLoginFormContainer>
+            <LoginForm />
+          </StyledLoginFormContainer>
+        </Route>
+     <SecureOpRoute path="/menu-items" component={Menu} />
+        <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureOpRoute>
-        <Route exact path="/logout" component={Logout} />
+        <Route exact path="/">
 
-        <Route path="/">
           <StyledBigImage>
             <LoginForm />
           </StyledBigImage>
         </Route>
+     </UserContext.Provider>
       </Switch>
       <Footer />
     </div>
@@ -240,4 +249,11 @@ const StyledBigImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledLoginFormContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
 `;

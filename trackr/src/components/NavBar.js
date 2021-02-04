@@ -20,6 +20,10 @@ const NavBar = () => {
       </StyledLink>
 
       <StyledLink>
+      <Link to="/register-form">Register</Link>
+      </StyledLink>
+
+      <StyledLink>
       <Link to="/logout">Log Out</Link>
       </StyledLink>
       

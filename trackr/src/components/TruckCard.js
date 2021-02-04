@@ -1,33 +1,55 @@
 // TruckCard has the ability to expand if isExpanded === true
-import React, { useEffect, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react"
+import { TrucksContext } from "../contexts/TrucksContext"
+import { UserContext } from "../contexts/UserContext"
+
+
 
 export default function TruckCard(props) {
-  const { truck, isDiner, favorites, setFavorites, key } = props;
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+    // const {truck, isDiner, favorites, setFavorites, key} = props
+    const [isExpanded, setIsExpanded] = useState(false)
+    const {truck} = props
+    const {role} = useContext(UserContext)
+    const isDiner = role === "diner"
+    const isFavorite = true
+    // const [isFavorite, setIsFavorite] = useState(false)
 
-  const favoriteMatch = favorites.filter((favorite) => {
-    return favorite === truck.id;
-  });
+    // const favoriteMatch = favorites.filter(favorite => {
+    //     return (
+    //     favorite === truck.id)
+    // })
 
-  useEffect(() => {
-    console.log(favoriteMatch.length);
-    setIsFavorite(favoriteMatch.length !== 0); // if favoriteMatch is an empty array, setIsFavorite to true - else, false
-  }, [favorites]);
+    // useEffect( () => {
+ 
+    // console.log(favoriteMatch.length)
+    //     setIsFavorite(favoriteMatch.length !== 0) // if favoriteMatch is an empty array, setIsFavorite to true - else, false
+    // }, [favorites])
 
-  const handleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const handleAddToFavorites = () => {
-    setFavorites([...favorites, truck.id]);
-    // post request
-  };
+
+    const handleExpand = () => {
+        setIsExpanded(!isExpanded)
+    }
+    // const handleAddToFavorites = () => {
+    //     setFavorites([...favorites,
+    //                 truck.id])
+    //                 // post request
+    // }
+
+    // const handleRemoveFromFavorites = () => {
+    //     setFavorites([...favorites,
+    //                 truck.id])
+
+    //                 // delete request
+
+
 
   const handleRemoveFromFavorites = () => {
     setFavorites([...favorites, truck.id]);
 
     // delete request
   };
+
 
   return (
     <div className="truckCard-container">
@@ -59,22 +81,22 @@ export default function TruckCard(props) {
         ❤️ one of your faves! -or- ♡ add to faves{" "}
         {/* this will be generated based on code below */}{" "}
       </p>
-      {!isDiner ? (
-        <></>
-      ) : isFavorite ? (
-        <h5 onClick={handleRemoveFromFavorites}> ❤️ one of your faves </h5>
-      ) : (
-        <h5 onClick={handleAddToFavorites}> ♡ add to faves </h5>
-      )}
-      {/* ^^ Only display click to add to favorites if user is role === "diner", state managed in Trucks.js */}
-      {!isExpanded && (
-        <h5 onClick={handleExpand}> Click here to see more details</h5>
-      )}
-      {/* ^^ Only display "click to see more" when the card is not expanded */}
-      {isExpanded && (
-        <div className="expanded-details-container">
-          <img src={truck.imageOfTruck} alt="this food truck" />
-          <h5 onClick={handleExpand}> Click here to hide </h5>
+    
+            {!isDiner ? <></> :
+           isFavorite ? <h5 > ❤️ one of your faves </h5> : //onClick ={handleRemoveFromFavorites}
+           <h5 > ♡ add to faves </h5> //onClick={handleAddToFavorites}
+            } 
+            {/* ^^ Only display click to add to favorites if user is role === "diner", state managed in Trucks.js */}
+            {!isExpanded && <h5 onClick={handleExpand}> Click here to see more details</h5>}
+            {/* ^^ Only display "click to see more" when the card is not expanded */}
+            {isExpanded && 
+            <div className="expanded-details-container" >
+            <img src = {truck.imageOfTruck} alt="this food truck"/>
+            <h5 onClick={handleExpand}> Click here to hide </h5>
+            </div>}
+             {/* ^^ Only display the above when the card IS expanded */}
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         </div>
       )}
       {/* ^^ Only display the above when the card IS expanded */}
