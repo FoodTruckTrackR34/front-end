@@ -19,7 +19,6 @@ export default function Trucks(props) {
 
     return (
         <div className="trucks-container">
-        <h1>Hello from trucks</h1>
         {!trucks ? <div>Loading...</div>:
             trucks.map( truck => {
                 return (
