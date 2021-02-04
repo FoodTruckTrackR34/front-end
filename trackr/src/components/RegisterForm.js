@@ -38,7 +38,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
         <StyledRegistrationContainer>
             <StyledDinerContainer active={activeDinerForm}>
                 <StyledSwitchDiv>
-                    <p>Looking to create an Operator profile instead?</p> 
+                    <p>Looking to create an <b>Operator</b> profile instead?</p> 
                     <button onClick={switchActive}>Click here</button>
                 </StyledSwitchDiv>
                 <h2>Create Diner Profile</h2>
@@ -102,14 +102,14 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             </input>
                         </label>
                     </div>
-                    <button disabled={dinerDisabled}>Submit</button>
+                    <StyledDinerButton disabled={dinerDisabled}>Create Diner Profile</StyledDinerButton>
 
                 </form>
             </StyledDinerContainer>
 
             <StyledOperatorContainer active={activeOperatorForm}>
                 <StyledSwitchDiv>
-                    <p>Looking to create a Diner profile instead?</p> 
+                    <p>Looking to create a <b>Diner</b> profile instead?</p> 
                     <button onClick={switchActive}>Click here</button>
                 </StyledSwitchDiv>
                 <h2>Create Operator Profile</h2>
@@ -162,7 +162,7 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
                             <StyledErrorDiv>{operatorErrors.operatorConfirmPassword}</StyledErrorDiv>
                         </label>
                     </div>
-                    <button disabled={operatorDisabled}>Submit</button>
+                    <StyledOperatorButton disabled={operatorDisabled}>Create Operator Profile</StyledOperatorButton>
 
                 </form>
             </StyledOperatorContainer>
@@ -171,28 +171,71 @@ export default function RegisterForm ({ dinerChange, dinerDisabled, operatorChan
 };
 
 const StyledRegistrationContainer = styled.div`
-    border: solid 1px red;
+    // border: solid 1px red;
+    display: flex;
+    justify-content: center;
 `;
 
 const StyledDinerContainer = styled.div`
-    border: solid 1px blue;
-    transition: .3s;
+    // border: solid 1px blue;
+    width: 35%;
 
     input {
-        margin: 0 0 1% .3%;
+        margin: 2% 0 1% 1%;
+        padding: 1%;
     }
 
     ${props => (props.active === true ? null : `display: none;`)}
 `;
 
+const StyledDinerButton = styled.button`
+    background-color:  #FFCC4D;
+    color: #585858;
+    margin-top: 3%;
+    padding: 2% 6% 2% 6%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+
+    :hover {
+        background-color:#77B255;
+        color: white;
+    }
+    ${props => (props.disabled === true ? `background-color: #b7b7b7; color: black; cursor: default; :hover{background-color: #b7b7b7; color: black};` : null)}
+}
+`;
+
 const StyledOperatorContainer = styled.div`
-    border: solid 1px green;
+    // border: solid 1px green;
+    width: 35%;
 
     input {
-        margin: 0 0 1% .3%;
+        margin: 2% 0 1% 1%;
+        padding: 1%;
     }
 
     ${props => (props.active === true ? null : `display: none;`)}
+`;
+
+const StyledOperatorButton = styled.button`
+    background-color:  #FFCC4D;
+    color: #585858;
+    margin-top: 3%;
+    padding: 2% 6% 2% 6%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+
+    :hover {
+        background-color:#77B255;
+        color: white;
+    }
+    ${props => (props.disabled === true ? `background-color: #b7b7b7; color: black; cursor: default; :hover{background-color: #b7b7b7; color: black};` : null)}
+}
 `;
 
 const StyledErrorDiv = styled.div`
@@ -200,6 +243,25 @@ const StyledErrorDiv = styled.div`
 `;
 
 const StyledSwitchDiv = styled.div`
-    border: solid 1px orange;
+    border-top: solid 1px #a7a7a7;
+    border-bottom: solid 1px #a7a7a7;
+    padding-top: 1%;
+    padding-bottom: 5%;
     text-align: center;
+    margin-top: 3%;
+
+    button {
+        background-color:  #FFCC4D;
+        color: #585858;
+        padding: 2% 4% 2% 4%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .3s;
+
+        :hover {
+            background-color:#77B255;
+            color: white;
+        }
+    }
 `;
