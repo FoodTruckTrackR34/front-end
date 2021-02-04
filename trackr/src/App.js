@@ -14,7 +14,8 @@ import Footer from "./components/Footer";
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
-import Menu from "./components/menu/Menu";
+import styled from 'styled-components';
+ 
 
 const initialUsers = [];
 
@@ -209,7 +210,12 @@ function App() {
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureOpRoute>
-        <Route path="/" component={LoginForm} />
+
+        <Route path="/">
+          <StyledBigImage>
+            <LoginForm />
+          </StyledBigImage>
+        </Route>
       </Switch>
       <Footer />
     </div>
@@ -217,3 +223,15 @@ function App() {
 }
 
 export default App;
+
+const StyledBigImage = styled.div`
+  // border: solid 1px red;
+  border-top: solid 2px #FFCC4D;
+  border-bottom: solid 2px #FFCC4D;
+  background: url('https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc4NjAyNzI5MjY4NTUz/hungry-food-trucks-istock_000021186450large-2.jpg');
+  height: 50vh;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
