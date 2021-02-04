@@ -208,11 +208,13 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
-
       <UserContext.Provider value={{currentUser, setCurrentUser}}>
         <Route  path="/login-form">
-          <LoginForm />
+          <StyledLoginFormContainer>
+            <LoginForm />
+          </StyledLoginFormContainer>
         </Route>
+    
         <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
@@ -241,4 +243,11 @@ const StyledBigImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledLoginFormContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
 `;
