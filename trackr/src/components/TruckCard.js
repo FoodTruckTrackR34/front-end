@@ -1,4 +1,5 @@
 // TruckCard has the ability to expand if isExpanded === true
+
 import React, { useContext, useEffect, useState } from "react"
 import { TrucksContext } from "../contexts/TrucksContext"
 import { UserContext } from "../contexts/UserContext"
@@ -42,22 +43,45 @@ export default function TruckCard(props) {
     //                 // delete request
 
 
-    return(
-        <div className="truckCard-container">
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br/>
 
-            <h2>Example Truck Name {/*truck.truckName 'string'*/} </h2>
-            <img src='exampleImage.png' /> {/*truck.imgURL 'string'*/}
-            <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
-            <h4>Average Customer Rating: 4.4/5 {/*average of an array of ratings .reduce over customerRatings.value / customerRatings.length*/} </h4>
-            <p>Current Location of Truck: 123 Main St. San Francisco, CA {/*truck.currentLocation*/} </p>
-            <p>Departure Time: 6:00pm PST {/*truck.departureTime*/} </p>
-            <a href=''>View Menu Items {/*.map over menuItems array ... expand this on same page? or new page?*/} </a>
-            <br />
-            <br />
-            <span>If the role is diner...</span><a href=''>Been here? Leave a Review! {/*link to a page with a form that adds the review to the customer ratings array?*/} </a>
-            <p>❤️ one of your faves! -or- ♡ add to faves {/* this will be generated based on code below */} </p>
+  const handleRemoveFromFavorites = () => {
+    setFavorites([...favorites, truck.id]);
 
+    // delete request
+  };
+
+
+  return (
+    <div className="truckCard-container">
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br />
+      <h2>Example Truck Name {/*truck.truckName 'string'*/} </h2>
+      <img src="exampleImage.png" /> {/*truck.imgURL 'string'*/}
+      <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
+      <h4>
+        Average Customer Rating: 4.4/5{" "}
+        {/*average of an array of ratings .reduce over customerRatings.value / customerRatings.length*/}{" "}
+      </h4>
+      <p>
+        Current Location of Truck: 123 Main St. San Francisco, CA{" "}
+        {/*truck.currentLocation*/}{" "}
+      </p>
+      <p>Departure Time: 6:00pm PST {/*truck.departureTime*/} </p>
+      <a href="/menu-items">
+        View Menu Items{" "}
+        {/*.map over menuItems array ... expand this on same page? or new page?*/}{" "}
+      </a>
+      <br />
+      <br />
+      <span>If the role is diner...</span>
+      <a href="">
+        Been here? Leave a Review!{" "}
+        {/*link to a page with a form that adds the review to the customer ratings array?*/}{" "}
+      </a>
+      <p>
+        ❤️ one of your faves! -or- ♡ add to faves{" "}
+        {/* this will be generated based on code below */}{" "}
+      </p>
+    
             {!isDiner ? <></> :
            isFavorite ? <h5 > ❤️ one of your faves </h5> : //onClick ={handleRemoveFromFavorites}
            <h5 > ♡ add to faves </h5> //onClick={handleAddToFavorites}
@@ -72,8 +96,13 @@ export default function TruckCard(props) {
             </div>}
              {/* ^^ Only display the above when the card IS expanded */}
              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         </div>
-    )
+      )}
+      {/* ^^ Only display the above when the card IS expanded */}
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    </div>
+  );
 }
 
 // create a component titled Menu which maps over all menu items and creates a subcomponent titled MenuItemCard for each item.

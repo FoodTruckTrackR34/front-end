@@ -11,13 +11,16 @@ import DinerDash from "./components/DinerDash";
 import OperatorDash from "./components/OperatorDash";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
-import {UserContext} from './contexts/UserContext'
-import styled from 'styled-components';
 
- 
+import styled from "styled-components";
+import Logout from "./utils/Logout";
+import Menu from "./components/menu/Menu";
+import {UserContext} from './contexts/UserContext'
+
 
 const initialUsers = [];
 
@@ -192,7 +195,6 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      {/* <Menu /> */}
       <Switch>
         <Route path="/register-form">
           <RegisterForm
@@ -208,18 +210,20 @@ function App() {
             operatorErrors={operatorFormErrors}
           />
         </Route>
+
       <UserContext.Provider value={{currentUser, setCurrentUser}}>
         <Route  path="/login-form">
           <StyledLoginFormContainer>
             <LoginForm />
           </StyledLoginFormContainer>
         </Route>
-    
+     <SecureOpRoute path="/menu-items" component={Menu} />
         <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
         </SecureOpRoute>
         <Route exact path="/">
+
           <StyledBigImage>
             <LoginForm />
           </StyledBigImage>
@@ -235,11 +239,13 @@ export default App;
 
 const StyledBigImage = styled.div`
   // border: solid 1px red;
-  border-top: solid 2px #FFCC4D;
-  border-bottom: solid 2px #FFCC4D;
-  background: url('https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc4NjAyNzI5MjY4NTUz/hungry-food-trucks-istock_000021186450large-2.jpg');
+  border-top: solid 2px #ffcc4d;
+  border-bottom: solid 2px #ffcc4d;
+  background: url("https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc4NjAyNzI5MjY4NTUz/hungry-food-trucks-istock_000021186450large-2.jpg");
   height: 50vh;
+  background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;

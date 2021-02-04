@@ -22,7 +22,9 @@ const menuObj = [
     id: 0,
     itemName: "Burger",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://www.sbs.com.au/food/sites/sbs.com.au.food/files/lotus-burger-lead.jpg",
+    ],
     itemPrice: 15.99,
     customerRatings: [4, 2, 2, 5],
     customerRatingAvg: function Average() {
@@ -38,7 +40,9 @@ const menuObj = [
     id: 1,
     itemName: "Fish Fillet",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://d1e3z2jco40k3v.cloudfront.net/-/media/mccormick-us/recipes/mccormick/s/800/saucy-lemon-fish-filets.jpg",
+    ],
     itemPrice: 5.99,
     customerRatings: [1, 2, 5],
     customerRatingAvg: function () {
@@ -53,7 +57,9 @@ const menuObj = [
     id: 2,
     itemName: "Sirlion Steak",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://www.lecremedelacrumb.com/wp-content/uploads/2020/07/sirloin-steak-7sm-10-500x500.jpg",
+    ],
     itemPrice: 55.99,
     customerRatings: [4, 3, 4, 1],
     customerRatingAvg: function () {
@@ -68,7 +74,9 @@ const menuObj = [
     id: 3,
     itemName: "Burger",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://www.foodrepublic.com/wp-content/uploads/2012/03/033_FR11785.jpg",
+    ],
     itemPrice: 15.99,
     customerRatings: [4, 2, 2, 5],
     customerRatingAvg: function Average() {
@@ -84,7 +92,9 @@ const menuObj = [
     id: 4,
     itemName: "Fish Fillet",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://skinnyms.com/wp-content/uploads/2015/09/Savory-Lemon-White-Fish-Fillets.jpg",
+    ],
     itemPrice: 5.99,
     customerRatings: [1, 2, 5],
     customerRatingAvg: function () {
@@ -99,7 +109,9 @@ const menuObj = [
     id: 5,
     itemName: "Sirlion Steak",
     itemDescription: " fire food for the tummy",
-    itemPhoto: [],
+    itemPhoto: [
+      "https://images-na.ssl-images-amazon.com/images/I/51SeQyjS3NL.jpg",
+    ],
     itemPrice: 55.99,
     customerRatings: [4, 3, 4, 1],
     customerRatingAvg: function Average() {
