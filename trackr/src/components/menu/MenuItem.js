@@ -19,8 +19,6 @@ export default function MenuItem(props) {
       }
     }
     setUpdateRating(...updateRating, base.value);
-    let checkR = base.checked;
-    let rated = base.value;
   };
 
   /*
@@ -29,9 +27,20 @@ this is a attempt at the hovering heart to be the rating it does not seem likely
 
   //End of my crucifix and attempting to dive into the unknown maybe it work maybe not IDK
   return (
-    <div>
-      {console.log(updateRating)}
-      <img src="../" alt="random" />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        margin: "0 auto",
+      }}
+    >
+      {console.log(menu)}
+      <img
+        style={{ width: "400px" }}
+        src={menu.itemPhoto}
+        alt={menu.itemName}
+      />
       <h5> Name: {menu.itemName} </h5>
       <p className="menu-price">Price: {menu.itemPrice} </p>
       <div className="menu-rating">
