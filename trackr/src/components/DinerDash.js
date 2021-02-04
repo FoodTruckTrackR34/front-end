@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import Trucks from "./Trucks"
 import DinerProfile from "./DinerProfile"
 import SearchBar from "./SearchBar"
 import {TrucksContext} from '../contexts/TrucksContext'
+import {UserContext} from '../contexts/UserContext'
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 const currentUserData = {
@@ -20,7 +21,7 @@ const currentUserData = {
 
 export default function DinerDash() {
     const [trucks, setTrucks] = useState()
-    const [currentUser, setCurrentUser] = useState()
+    const currentUser = useContext(UserContext)
 
     const fetchTrucks = () => {
         
@@ -28,6 +29,7 @@ export default function DinerDash() {
             .get('/api/trucks')
             .then(res => {
                 console.log(res.data)
+                debugger
                 setTrucks(res.data)
             }
             )
@@ -44,10 +46,10 @@ export default function DinerDash() {
     }, [])
 
     return(
-        <TrucksContext.Provider value={trucks}>
+        <TrucksContext.Provider value={{trucks, setTrucks}}>
             <div className="dashboard-container">
                 <SearchBar />    
-                <DinerProfile currentUser={currentUser}/>
+                <DinerProfile/>
                 <Trucks />
             </ div>
        </TrucksContext.Provider>

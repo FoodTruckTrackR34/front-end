@@ -3,7 +3,8 @@
 // looking for username and password on the back end
 // access key?
 // send to back end via POST (onSubmit())
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {UserContext} from "../contexts/UserContext"
 import styled from "styled-components";
 import loginSchema from "../validation/loginFormSchema";
 import * as yup from "yup";
@@ -24,7 +25,7 @@ const initialLoginFormErrors = {
 const initialLoginDisabled = true;
 
 export default function LoginForm() {
-
+  const {currentUser, setCurrentUser} = useContext(UserContext) //testing
   const {push} = useHistory()
 
   const [loginFormValues, setLoginFormValues] = useState(
@@ -89,18 +90,14 @@ code that was already in the Login.js component is placed below and everything i
         console.log(res.data);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.role);
-
-        // axios
-        //.get()
-        // get array of users
-        // filter through array and return user if loginFormValues.username === user.username
-        // if user.role === "diner"
+        setCurrentUser(res.data.userData)
         res.data.role ==="diner" ?
         push("/diner-dashboard")  :
         push("/operator-dashboard")
         // setLoginFormValues(initialLoginFormValues);
       })
       .catch((err) => {
+        debugger
         setAuthError(err.response.data.message);
       });
     //
