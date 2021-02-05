@@ -9,6 +9,8 @@ import styled from "styled-components";
 
 export default function OperatorDash() {
   const [trucks, setTrucks] = useState([]);
+  const [menus, setMenus] =useState([])
+  const [avgRatings, setAvgRatings] = useState([])
 
   const fetchTrucks = () => {
     axiosWithAuth()
@@ -22,6 +24,17 @@ export default function OperatorDash() {
       });
   };
 
+  const fetchMenus = () => {
+      axiosWithAuth()
+      .get("/api/menus")
+      .then(res => {
+          console.log(res.data)
+      })
+      .catch(err=>{
+          console.log(err.response.data.message)
+      })
+  }
+
   useEffect(() => {
     fetchTrucks();
     console.log(trucks);
@@ -29,7 +42,7 @@ export default function OperatorDash() {
   // get trucks from api .then(setTrucks(res.data)).catch(setTrucks("Could not load trucks"))
 
   return (
-    <TrucksContext.Provider value={{ trucks, setTrucks }}>
+    <TrucksContext.Provider value={{ trucks, setTrucks, menus, setMenus, avgRatings, setAvgRatings }}>
       <SearchBar />
 
       <StyledDashboardContainer>

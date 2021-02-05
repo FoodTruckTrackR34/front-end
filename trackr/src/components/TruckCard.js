@@ -1,17 +1,22 @@
 // TruckCard has the ability to expand if isExpanded === true
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect,  useState } from "react";
+import {useHistory} from 'react-router-dom'
 import { TrucksContext } from "../contexts/TrucksContext";
 import { UserContext } from "../contexts/UserContext";
 import styled from 'styled-components';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export default function TruckCard(props) {
   // const {truck, isDiner, favorites, setFavorites, key} = props
   const [isExpanded, setIsExpanded] = useState(false);
   const { truck } = props;
-  const { role } = useContext(UserContext);
-  const isDiner = role === "diner";
+  const { currentUser, currentTruck, setCurrentTruck } = useContext(UserContext);
+  // const isDiner = role === "diner";
+  const isDiner = true
   const isFavorite = true;
+  const { push } = useHistory();
+
   // const [isFavorite, setIsFavorite] = useState(false)
 
   // const favoriteMatch = favorites.filter(favorite => {
@@ -45,14 +50,22 @@ export default function TruckCard(props) {
 
   //     // delete request
   //   };
+  axiosWithAuth()
+  .get(`/api/trucks/get-truck-rating-avg`)
+  .then(res=>{
+      console.log(res)
+  })
+  .catch(err=>{
+      console.log(err.response.data.message)
+  })
 
   return (
     <StyledTruckCardContainer>
       <h1>{truck.truckName}{/*truck.truckName 'string'*/} </h1>
-      <img src="https://i.pinimg.com/originals/a4/87/1b/a4871b6129a866af0354fe86b9bf01f6.jpg" /> {/*truck.imgURL 'string'*/}
-      <h3>Example Cuisine Type {/*truck.cuisineType 'string'*/} </h3>
+      <img src={truck.imageOfTruck} /> {/*truck.imgURL 'string'*/}
+      <h3>Cuisine: {truck.cuisineType} </h3>
       <h4>
-        Average Customer Rating: 4.4/5{" "}
+        Average Customer Rating: {}/5{" "}
         {/*average of an array of ratings .reduce over customerRatings.value / customerRatings.length*/}{" "}
       </h4>
       <p>
@@ -60,8 +73,9 @@ export default function TruckCard(props) {
         {/*truck.currentLocation*/}{" "}
       </p>
       <p>Departure Time: 6:00pm PST {/*truck.departureTime*/} </p>
-      <a href="/menu-items">
-        <StyledViewMenuItems>View Menu Items</StyledViewMenuItems>{" "}
+      <a onClick={() => {setCurrentTruck(truck); push(`/menu-items/${truck.truck_id}`)}}>
+        <StyledViewMenuItems>View Menu Items</StyledViewMenuItems>
+        {" "}
         {/*.map over menuItems array ... expand this on same page? or new page?*/}{" "}
       </a>
       <br />

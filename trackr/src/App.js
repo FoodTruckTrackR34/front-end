@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect, createContext } from "react";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, useParams } from "react-router-dom";
 import * as yup from "yup";
 import dinerSchema from "./validation/dinerFormSchema";
 import operatorSchema from "./validation/operatorFormSchema";
@@ -57,6 +57,7 @@ const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
 function App() {
+  const {id} = useParams();
   const history = useHistory();
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(
@@ -74,6 +75,9 @@ function App() {
   const [dinerButton, setDinerButton] = useState(initialDinerDisabled);
   const [operatorButton, setOperatorButton] = useState(initialOperatorDisabled);
   const [currentUser, setCurrentUser] = useState({})
+  const [menus, setMenus] = useState([])
+  const [trucks, setTrucks] = useState([])
+  const [currentTruck, setCurrentTruck] = useState({})
 
   const dinerInputChange = (name, value) => {
     yup
@@ -211,13 +215,14 @@ function App() {
           />
         </Route>
 
-      <UserContext.Provider value={{currentUser, setCurrentUser}}>
+      <UserContext.Provider value={{currentUser, setCurrentUser, menus, setMenus, trucks, setTrucks, currentTruck, setCurrentTruck}}>
         <Route  path="/login-form">
           <StyledLoginFormContainer>
             <LoginForm />
           </StyledLoginFormContainer>
         </Route>
-     <SecureOpRoute path="/menu-items" component={Menu} />
+        
+        <SecureOpRoute path="/menu-items/:id" component={Menu} />
         <SecureDinerRoute path="/diner-dashboard" component={DinerDash}/>
         <SecureOpRoute path="/operator-dashboard">
           <OperatorDash />
