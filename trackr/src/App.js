@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect} from "react";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import { Switch, Route, useHistory, useParams } from "react-router-dom";
@@ -14,10 +14,10 @@ import Footer from "./components/Footer";
 
 import { SecureOpRoute } from "./components/SecureOpRoute";
 import { SecureDinerRoute } from "./components/SecureDinerRoute";
-import { axiosWithAuth } from "./utils/axiosWithAuth";
+//import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 import styled from "styled-components";
-import Logout from "./utils/Logout";
+//import Logout from "./utils/Logout";
 import Menu from "./components/menu/Menu";
 import {UserContext} from './contexts/UserContext'
 
@@ -57,7 +57,7 @@ const initialDinerDisabled = true;
 const initialOperatorDisabled = true;
 
 function App() {
-  const {id} = useParams();
+ // const {id} = useParams();
   const history = useHistory();
   const [users, setUsers] = useState(initialUsers);
   const [dinerFormValues, setDinerFormValues] = useState(
