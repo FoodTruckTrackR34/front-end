@@ -8,7 +8,6 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import styled from 'styled-components';
 
 const menuInitialValues = {
-  cuisineType:"",
   itemName: "",
   itemDescription: "",
   itemPhoto: '',
@@ -173,12 +172,21 @@ function Menu() {
 
 const postNewMenu = () => {
 
-  setFormValues({...formValues, itemPrice: Number(formValues.itemPrice)} )
+  setFormValues({...formValues, itemPrice: Number(formValues.itemPrice) })
   console.log(formValues)
   axiosWithAuth()
   .post(`/api/menus/${id}`, formValues)
   .then(res => {
     console.log(res.data)
+    axiosWithAuth()
+    .get(`/api/menus`)
+    .then(res=> {
+      console.log(res.data)
+      setMenus(res.data)
+    })
+    .catch(err=> {
+      console.log(err)
+    })
   })
   .catch(err => {
     console.log(err.response.data.message)
@@ -199,14 +207,19 @@ const handleChangeAdd = (evt) => {
   setFormValues({...formValues, [name]: value})
 }
 
-
+const thisTrucksMenu = menus.filter(menu => {
   
+  return menu.truck_id == id
+  })
+
+
+  console.log(thisTrucksMenu, "thistrucks menu")
   return (
     <div className="menu-list">
       <h4>Menu List</h4>
       <div>
         <ol>
-        {menus.length !== 0 ? menus.map((menu) => {
+        {thisTrucksMenu.length !== 0 ? thisTrucksMenu.map((menu) => {
             // console.log(menu);
             return (
               <li
@@ -240,12 +253,6 @@ const handleChangeAdd = (evt) => {
             <StyledAddMenuItemInput>
             <label>Menu Item Image URL <br />
             <input onChange={handleChangeAdd} name="itemPhoto" value={formValues.itemPhoto} type="text" placeholder="foodphoto.com"/>
-            </label>
-            </StyledAddMenuItemInput>
-
-            <StyledAddMenuItemInput>
-            <label>Cuisine <br />
-            <input onChange={handleChangeAdd} name="cuisineType" value={formValues.cuisineType} type="text" placeholder="Italian"/>
             </label>
             </StyledAddMenuItemInput>
 
