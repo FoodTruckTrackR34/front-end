@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const initialFormValues = 
 
                         {cuisineType: "",
-                        departureTime: "", //may change
+                        departureTimeString: "", //may change
                         imageOfTruck: "",
                         latitude: "",
                         longitude: "",
@@ -35,13 +35,20 @@ export default function OperatorProfile() {
         newTruck = {...newTruck,
              latitude: Number(formValues.latitude), 
              longitude: Number(formValues.longitude),
-             departureTime:null } //may change 
+             departureTimeString: formValues.departureTimeString.toString() } //may change 
              //
         axiosWithAuth()
         .post("api/trucks", newTruck)
         .then( res => {
-            console.log(res)
-            console.log(newTruck)
+            axiosWithAuth()
+            .get("/api/trucks")
+            .then( res => {
+                setTrucks(res.data)
+            }
+            )
+            .catch(err => {
+                console.log(err.response.data.message)
+            })
         }
         )
         .catch(err => {
@@ -175,7 +182,7 @@ export default function OperatorProfile() {
                     <StyledAddTruckInput>
                     <label>Departure Time <span onClick={toggleInfoDisplay}>ℹ️</span> <br />
                     {infoDisplay && <p>(when does the truck leave its current location?)</p>}
-                    <input onChange={handleChangeEdit} name="departureTime" value={editFormValues.departureTime} type="datetime-local" placeholder=""/>
+                    <input onChange={handleChangeEdit} name="departureTimeString" value={editFormValues.departureTimeString} type="datetime-local" placeholder=""/>
                     </label>
                     </StyledAddTruckInput>
 
@@ -228,7 +235,7 @@ export default function OperatorProfile() {
                     <StyledAddTruckInput>
                     <label>Departure Time <span onClick={toggleInfoDisplay}>ℹ️</span> <br />
                     {infoDisplay && <p>(when does the truck leave its current location?)</p>}
-                    <input onChange={handleChangeAdd} name="departureTime" value={formValues.departureTime} type="datetime-local" placeholder=""/>
+                    <input onChange={handleChangeAdd} name="departureTimeString" value={formValues.departureTimeString} type="datetime-local" placeholder=""/>
                     </label>
                     </StyledAddTruckInput>
 

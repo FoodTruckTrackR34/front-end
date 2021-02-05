@@ -6,7 +6,6 @@ export function SecureOpRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        debugger
         if (localStorage.getItem("token")) {
           return <Component />;
         } else {
