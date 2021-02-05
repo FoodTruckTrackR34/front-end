@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  };
+
   return (
     <StyledNavContainer>
 
@@ -24,7 +29,7 @@ const NavBar = () => {
       </StyledLink>
 
       <StyledLink>
-      <Link to="/logout">Log Out</Link>
+      <Link onClick={logout} to="/login-form">Log Out</Link>
       </StyledLink>
       
     </StyledNavContainer>
