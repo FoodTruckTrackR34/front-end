@@ -68,8 +68,6 @@ export default function OperatorProfile() {
         const currentUserTrucks = trucks.filter( (truck) => {
             return truck.user_id === currentUser.user_id 
         })
-
-        // const fakeUserTrucks = [] //{truckName: "this truck"}, {truckName: "that truck"}
    
 
     return(
@@ -79,7 +77,7 @@ export default function OperatorProfile() {
                 <h1>Hi, <StyledUsername>{currentUser.username}</StyledUsername>!</h1>
                 <h2> Account Type: <StyledRole>{currentUser.role}</StyledRole></h2>
                 <ul>
-                    Trucks Owned:
+                    Trucks Owned: <br/><br/>
                     { currentUserTrucks.length === 0 ? <span> None yet, click below to add</span> :
                     currentUserTrucks.map(truck => {
                         return(
